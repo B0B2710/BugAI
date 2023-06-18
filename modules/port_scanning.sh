@@ -7,11 +7,11 @@ then
     exit 1
 fi
 
-ip=$1
+ip=""
+subdomains=$1
 output_dir=$2
 scan_mod=$3
 scan_speed=$4
-subdomains=$5
 ip_addresses=""
 #nmap
 

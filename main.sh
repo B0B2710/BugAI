@@ -54,14 +54,14 @@ fi
 mkdir -p "${output_dir}"
 
 # Run modules
-for module in subdomain_enumeration; do
-    "./modules/${module}.sh" "${domain}" "${output_dir}/subdomains.txt" || exit 1
-done
+
+"./modules/${module}.sh" "${domain}" "${output_dir}/subdomains.txt" || exit 1
+
    
-"./modules/port_scanning.sh" "${domain}" "${output_dir}/portscan.txt" "${scan_mod}" "${scan_speed}"|| exit 1
+"./modules/port_scanning.sh" "${output_dir}/subdomains.txt" "${output_dir}/portscan.txt" "${scan_mod}" "${scan_speed}"|| exit 1
 
 
-#for module in port_scanning screenshots technologies content_discovery links parameters fuzzing command_injection cors_misconfiguration crlf_injection csrf_injection directory_traversal file_inclusion graphql_injection header_injection http_splitting sql_injection open_redirect subdomain_takeover vulnerability_scanning; do
+#for module in  screenshots technologies content_discovery links parameters fuzzing command_injection cors_misconfiguration crlf_injection csrf_injection directory_traversal file_inclusion graphql_injection header_injection http_splitting sql_injection open_redirect subdomain_takeover vulnerability_scanning; do
 #    "./modules/${module}.sh" -i "${output_dir}/subdomains.txt" -o "${output_dir}/${module}" -t "${threads}" "${depth}" || exit 1
 #done
 
