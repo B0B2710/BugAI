@@ -55,7 +55,7 @@ mkdir -p "${output_dir}"
 
 # Run modules
 
-"./modules/${module}.sh" "${domain}" "${output_dir}/subdomains.txt" || exit 1
+"./modules/subdomain_enumeration.sh" "${domain}" "${output_dir}/subdomains.txt" || exit 1
 
    
 "./modules/port_scanning.sh" "${output_dir}/subdomains.txt" "${output_dir}/portscan.txt" "${scan_mod}" "${scan_speed}"|| exit 1
