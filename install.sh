@@ -52,10 +52,15 @@ fi
 
 
 # Gospider
-
 if ! command -v gospider &> /dev/null;then
     echo "Installing Gospider..."
     sudo apt install gospider
+fi
+
+# hakrawler
+if ! command -v hakrawler &> /dev/null;then
+    echo "Installing hakrawler..."
+    sudo apt install hakrawler
 fi
 
 
