@@ -59,7 +59,7 @@ mkdir -p "${output_dir}"
 
    
 "./modules/port_scanning.sh" "${output_dir}/subdomains.txt" "${output_dir}/portscan.txt" "${scan_mod}" "${scan_speed}"|| exit 1
-
+"./modules/technologies.sh" "${output_dir}/subdomains.txt" "${output_dir}"  || exit 1
 "./modules/content_discovery" "${domain}" "${output_dir}" "${scan_mod}" "${scan_speed}" || exit 1
 
 #for module in  screenshots technologies content_discovery links parameters fuzzing command_injection cors_misconfiguration crlf_injection csrf_injection directory_traversal file_inclusion graphql_injection header_injection http_splitting sql_injection open_redirect subdomain_takeover vulnerability_scanning; do
