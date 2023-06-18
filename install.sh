@@ -57,6 +57,22 @@ if ! command -v gospider &> /dev/null;then
     sudo apt install gospider
 fi
 
+#wappalyzer/cli
+if ! command -v wappalyzer &>/dev/null; then
+    echo "Installing wappalyzer/cli..."
+    # Install wappalyzer/cli using npm
+    sudo npm install -g wappalyzer-cli
+fi
+
+# webanalyze
+if ! command -v webanalyze &>/dev/null; then
+    echo "Installing webanalyze..."
+    # Install webanalyze using apt
+    sudo apt update
+    sudo apt install -y webanalyze
+fi
+
+
 # hakrawler
 if ! command -v hakrawler &> /dev/null;then
     echo "Installing hakrawler..."
