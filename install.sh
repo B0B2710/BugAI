@@ -50,6 +50,16 @@ if ! command -v java &> /dev/null; then
 fi
 
 
+
+# Gospider
+
+if ! command -v gospider &> /dev/null;then
+    echo "Installing Gospider..."
+    sudo apt install gospider
+fi
+
+
+
 # Install xsrfprobe
 if ! command -v xsrfprobe &> /dev/null;then
     echo "Installing xsrfprobe..."
@@ -81,8 +91,7 @@ fi
 # Install Dirsearch
 if ! command -v dirsearch &> /dev/null;then
     echo "Installing Dirsearch..."
-    sudo git clone https://github.com/maurosoria/dirsearch.git /opt/dirsearch
-    sudo ln -s /opt/dirsearch/dirsearch.py /usr/bin/dirsearch
+    sudo apt install dirsearch
 fi
 # Install gobuster
 if ! command -v gobuster  &> /dev/null;then
