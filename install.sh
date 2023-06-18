@@ -86,7 +86,7 @@ if ! command -v dirsearch &> /dev/null;then
 fi
 # Install gobuster
 if ! command -v gobuster  &> /dev/null;then
-    go install github.com/OJ/gobuster/v3@latest
+   sudo apt install gobuster
 fi
 # Install httpx
 if ! command -v httpx &> /dev/null;then

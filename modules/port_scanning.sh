@@ -13,7 +13,7 @@ output_dir=$2
 scan_mod=$3
 scan_speed=$4
 ip_addresses=""
-#nmap
+
 
 get_subdomain_ips() {
     local domain="$1"
@@ -31,6 +31,8 @@ get_subdomain_ips() {
 }
 
 get_subdomain_ips
+#nmap
+#nmap -sS -p- -sV -T4 -iL $outdir/masscan.txt -oA $outdir/nmap
 nmapScanHandler() {
     
     funcStartTime="start time: $current_datetime"
@@ -56,18 +58,42 @@ nmapScanHandler() {
 
 
 }
-
+# Nmap
+echo "[*] Running Nmap..."
 nmapScanHandler
 
 
 
 # Masscan
-echo "[*] Running Masscan..."
-masscan -p1-65535 $ip_address -oL $output_dir/masscan.txt --rate=10000
 
-# Nmap
-echo "[*] Running Nmap..."
-nmap -sS -p- -sV -T4 -iL $outdir/masscan.txt -oA $outdir/nmap
+#masscan -p1-65535 $ip_address -oL $output_dir/masscan.txt --rate=10000
+masscanScanHandler(){
+    
+    if [[ "$scan_speed" == "s" ]]; then
+        speed="1000"
+    elif [[ "$scan_speed" == "m" ]]; then
+        speed="5000"
+    elif [[ "$scan_speed" == "f" ]]; then
+        speed="10000"
+    fi
+
+    for ip in "${ip_addresses[@]}"; do
+        if [[ $scan_mod == "a" ]]; then
+            sudo masscan -p1-65535 "$ip" -oL "$output_dir/masscan.txt" --rate "$speed"
+        elif [[ $scan_mod == "s" || $scan_mod == "S" ]]; then
+            sudo masscan -sS -Pn -p1-65535 "$ip" -oL "$output_dir/masscan.txt" --rate "$speed"
+        elif [[ $scan_mod == "d" || $scan_mod == "D" ]]; then
+            sudo masscan -sU -p1-65535 "$ip" -oL "$output_dir/masscan.txt" --rate "$speed"
+        fi
+    done
+
+}
+masscanScanHandler
+echo "[*] Running Masscan..."
+
+
+
+
 
 echo "[+] Port scanning complete! Output saved to: $outdir"
 
