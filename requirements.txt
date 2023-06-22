@@ -8,8 +8,10 @@ future
 PySocks
 corscanner
 crlfsuite
-
-
+certifi
+chardet
+idna
+urllib3
 
 
 

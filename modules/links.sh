@@ -6,7 +6,7 @@ if [ $# -ne 1 ]; then
 fi
 
 domain=$1
-subdomains_file="subdomains.txt"
+subdomains_file="${output_dir}/subdomains.txt"
 links_file="links.txt"
 
 echo "[*] Starting link discovery for $domain..."
@@ -22,13 +22,6 @@ echo "[*] Running LinkFinder on subdomains..."
 while read subdomain; do
     echo "[*] Running LinkFinder on $subdomain"
     python3 ~/tools/LinkFinder/linkfinder.py -i "https://$subdomain" -d -o cli >> "$links_file"
-done < "$subdomains_file"
-
-# Run JS-Scan on each subdomain
-echo "[*] Running JS-Scan on subdomains..."
-while read subdomain; do
-    echo "[*] Running JS-Scan on $subdomain"
-    ~/tools/js-scanner/scanner -u "https://$subdomain" -o cli >> "$links_file"
 done < "$subdomains_file"
 
 # Run waybackurls on each subdomain

@@ -1,16 +1,13 @@
 #!/bin/bash
 
-domain=$1
-outdir=$2
+output_dir=$1
+output_file=${output_dir}/command_injection.txt
 
-if [[ -z "$domain" || -z "$outdir" ]]; then
-    echo "Usage: ./command_injection.sh <domain> <outdir>"
-    exit 1
-fi
 
 # Commix
 echo "[*] Running Commix..."
-commix --url "$domain" --batch --output-dir "$outdir/commix" > /dev/null 2>&1
+commix --url "$domain" --batch --output-dir "$outdir/commix" > "$output_file" 2>&1
+
 
 echo "[*] Command Injection scan completed."
 

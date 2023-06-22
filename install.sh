@@ -7,6 +7,7 @@ pip3 install -r requirements.txt
 
 
 
+
 # Install Golang
 if ! command -v go &> /dev/null; then
     echo "Go programming language is not found. Installing Go..."
@@ -106,8 +107,45 @@ if ! command -v corsy &> /dev/null;then
     sudo ln -s /opt/Corsy/corsy.py /usr/bin/corsy
 fi
 
-# Install CORScanner
-#installed in requirements
+
+#installed in requirements :CORScanner,paramspider
+
+
+
+#getallurls (gau)
+go install github.com/lc/gau/v2/cmd/gau@latest
+
+
+
+echo "Installing ParamSpider..."
+git clone https://github.com/devanshbatham/ParamSpider /opt/ParamSpider
+
+echo "Installing gf..."
+go get -u github.com/tomnomnom/gf
+
+sudo apt install wfuzz
+sudo apt install ffuf
+sudo apt install commix
+
+
+
+# Check if fuzzdb is installed and clone it if not
+if [ ! -d "fuzzdb" ]
+then
+    echo "[*] Cloning fuzzdb repository..."
+    git clone https://github.com/fuzzdb-project/fuzzdb.git /opt/
+fi
+
+if ! command -v arjun &> /dev/null;then
+    echo "Installing arjun..."
+    sudo apt install arjun
+fi
+
+if ! command -v dirsearch &> /dev/null;then
+    echo "Installing Dirsearch..."
+    sudo apt install dirsearch
+fi
+
 
 # Install Dirsearch
 if ! command -v dirsearch &> /dev/null;then
@@ -246,10 +284,14 @@ fi
 
 # Findomain
 if ! command -v LinkFinder &> /dev/null;then
-  echo "Installing LinkFinder..."
-  sudo git clone https://github.com/GerbenJavado/LinkFinder.git /opt/LinkFinder
-  sudo ln -s /opt/LinkFinder/linkfinder.py /usr/bin/LinkFinder
+    echo "Installing LinkFinder..."
+    sudo git clone https://github.com/GerbenJavado/LinkFinder.git /opt/LinkFinder
+    sudo ln -s /opt/LinkFinder/linkfinder.py /usr/bin/LinkFinder
+    # Add LinkFinder to the PATH
+    
+    source ~/.bashrc
 fi
+
 # Install dnsenum
 if ! command -v subfinder &> /dev/null;then
     echo "Installing dnsenum..."
