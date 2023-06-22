@@ -1,18 +1,10 @@
 #!/bin/bash
 
-# Check for the target URL
-if [[ -z "$1" ]]; then
-    echo "Usage: ./file_inclusion.sh <target_url>"
-    exit 1
-fi
 
 # Set the target URL
-target_url="$1"
+output_dir=$1
+subdomains_file="${output_dir}/subdomains.txt"
 
-# Create the output directory
-if [[ ! -d "output/file_inclusion" ]]; then
-    mkdir -p "output/file_inclusion"
-fi
 
 # Run Liffy
 echo "[*] Running Liffy..."

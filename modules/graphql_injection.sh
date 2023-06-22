@@ -12,9 +12,9 @@ shapeshifter_opts="$5"
 # Create output directory
 mkdir -p "$output_dir"
 
-# Run inql
-echo "Running inql..."
-inql -t "$url" -o "$output_dir/inql_results.txt" $inql_opts
+# Run inql burp suit extention
+#echo "Running inql..."
+#inql -t "$url" -o "$output_dir/inql_results.txt" $inql_opts
 
 # Run GraphQLmap
 echo "Running GraphQLmap..."

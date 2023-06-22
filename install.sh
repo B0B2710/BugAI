@@ -5,6 +5,7 @@ sudo apt-get update
 sudo apt-get -y install nmap curl git python3-pip jq dnsutils
 pip3 install -r requirements.txt
 
+#installed in requirements :CORScanner,paramspider,xsrfprobe,CRLFsuite
 
 
 
@@ -82,12 +83,6 @@ fi
 
 
 
-# Install xsrfprobe
-if ! command -v xsrfprobe &> /dev/null;then
-    echo "Installing xsrfprobe..."
-    sudo git clone https://github.com/0xInfection/xsrfprobe.git /opt/xsrfprobe
-    sudo ln -s /opt/xsrfprobe/xsrfprobe.py /usr/bin/xsrfprobe
-fi
 
 # Install crlfuzz
 if ! command -v crlfuzz &> /dev/null;then
@@ -95,9 +90,6 @@ if ! command -v crlfuzz &> /dev/null;then
     sudo git clone https://github.com/dwisiswant0/crlfuzz.git /opt/crlfuzz
     sudo ln -s /opt/crlfuzz/crlfuzz.py /usr/bin/crlfuzz
 fi
-
-#Install CRLFsuite
-#Installed in requirements
 
 # Install Corsy
 if ! command -v corsy &> /dev/null;then
@@ -108,7 +100,6 @@ if ! command -v corsy &> /dev/null;then
 fi
 
 
-#installed in requirements :CORScanner,paramspider
 
 
 
@@ -126,7 +117,15 @@ go get -u github.com/tomnomnom/gf
 sudo apt install wfuzz
 sudo apt install ffuf
 sudo apt install commix
+sudo apt install dotdotpwn
 
+
+echo "Installing FDsploit..."
+git clone https://github.com/chrispetrou/FDsploit.git /opt/FDsploit
+
+echo "Installing GraphQLmap..."
+git clone https://github.com/swisskyrepo/GraphQLmap /opt/GraphQLmap
+python setup.py install
 
 
 # Check if fuzzdb is installed and clone it if not

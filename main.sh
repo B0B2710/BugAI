@@ -17,6 +17,7 @@ show_help() {
     echo "  -Pm, scan mod : a,A = agresive s,S = silent d,D = defult"
     echo "  -Ps, scan speed : m,M = meduim s,S = slow f,F = fast"
     echo "  -P, add a proxy file for all the scanners"
+    echo "  -t, threads deafult 10"
     echo "  -d, domain"
     echo "  -o, output_dir"
     # Add more options and descriptions as needed
@@ -66,10 +67,15 @@ mkdir -p "${output_dir}"
 "./modules/fuzzing.sh" "${output_dir}"  || exit 1
 "./modules/command_injection.sh" "${output_dir}"  || exit 1
 "./modules/cors_misconfiguration.sh" "${output_dir}"  || exit 1
+"./modules/crlf_injection.sh" "${output_dir}" "${threads}" || exit 1
+#"./modules/csrf_injection.sh" "${output_dir}" "${threads}" || exit 1
+"./modules/directory_traversal.sh" "${output_dir}" || exit 1
+#"./modules/file_inclusion.sh" "${output_dir}" || exit 1
+#"./modules/graphql_injection.sh" "${output_dir}" || exit 1
+"./modules/header_injection.sh" "${output_dir}" || exit 1
 
 
-
-#for module in  screenshots cors_misconfiguration crlf_injection csrf_injection directory_traversal file_inclusion graphql_injection header_injection http_splitting sql_injection open_redirect subdomain_takeover vulnerability_scanning; do
+#for module in  screenshots  header_injection http_splitting sql_injection open_redirect subdomain_takeover vulnerability_scanning; do
 #    "./modules/${module}.sh" -i "${output_dir}/subdomains.txt" -o "${output_dir}/${module}" -t "${threads}" "${depth}" || exit 1
 #done
 

@@ -24,11 +24,6 @@ subdomains_file="${output_dir}/subdomains.txt"
 
 # Read each subdomain from the file
 while IFS= read -r domain; do
-    outdir="$output_dir/$domain"
-
-    # Create the output directory if it doesn't exist
-    mkdir -p "$outdir"
-
     # Run wfuzz and append output to the main file
     echo "[*] Running wfuzz on $domain..."
     wfuzz -w /usr/share/seclists/Discovery/Web_Content/common.txt -u "http://$domain/FUZZ" -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:58.0) Gecko/20100101 Firefox/58.0" --hc 404 -t 50 >> "$output_file"

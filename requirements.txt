@@ -12,6 +12,12 @@ certifi
 chardet
 idna
 urllib3
+xsrfprobe
+bs4
+html5lib
+validators
+fake_useragent
+requests[security]
 
 
 
