@@ -1,30 +1,41 @@
 #!/bin/bash
 
-# Input validation
-if [[ $# -eq 0 || ! -f "$1" ]]; then
-  echo "Usage: ./subdomain_takeover.sh <subdomains_file>"
-  exit 1
-fi
+output_dir=$1
+subdomains_file="${output_dir}/subdomains.txt"
 
 # Tools required
-subjack_path="/opt/subjack/subjack"
 subover_path="/opt/SubOver/subover.py"
 autosubtakeover_path="/opt/autosubtakeover/autosubtakeover.py"
 can_i_take_over_xyz_path="/opt/can-i-take-over-xyz/can-i-take-over-xyz.py"
 
 # Output file
-output_file="subdomain_takeover_results.txt"
+output_file="$output_dir/subdomain_takeover_results.txt"
 
 # Create output file or clear its contents
 > $output_file
 
-# Subdomain Takeover using subjack
-echo "[*] Running subjack..."
-$subjack_path -w $1 -t 50 -ssl -c /opt/subjack/fingerprints.json -v -o $output_file
+
+
+# Read each subdomain from the file
+while IFS= read -r domain; do
+    
+
+
+    # Run subjack
+    echo "[*] Running subjack on $domain..."
+    subjack -a -d $domain -t 10 -ssl -v -o $output_file
+    # Run FDsploit
+    echo "[*] Running FDsploit on $domain..."
+
+
+done < "$subdomains_file"
+
+
+
 
 # Subdomain Takeover using SubOver
 echo "[*] Running SubOver..."
-python3 $subover_path -l $1 -t 20 >> $output_file
+python3 $subover_path -l subdomains_file -t 20 >> $output_file
 
 # Subdomain Takeover using autosubtakeover
 echo "[*] Running autosubtakeover..."

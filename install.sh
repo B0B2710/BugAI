@@ -113,6 +113,9 @@ git clone https://github.com/dubs3c/Injectus.git /opt/Injectus
 echo "Installing gf..."
 go get -u github.com/tomnomnom/gf
 
+
+
+sudo apt install subjack
 sudo apt install hakrawler
 sudo apt install gospider
 sudo apt install wfuzz
@@ -144,7 +147,7 @@ git clone https://github.com/r0075h3ll/Oralyzer.git /opt/Oralyzer
 if [ ! -d "fuzzdb" ]
 then
     echo "[*] Cloning fuzzdb repository..."
-    git clone https://github.com/fuzzdb-project/fuzzdb.git /opt/
+    git clone https://github.com/fuzzdb-project/fuzzdb.git /opt/fuzzdb
 fi
 
 
