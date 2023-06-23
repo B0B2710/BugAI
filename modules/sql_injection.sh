@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+
+subdomains_file="${output_dir}/subdomains.txt"
 # SQL Injection Scanning Script
 
 # Required tools: sqlmap, NoSQLMap, SQLiScanner
@@ -7,26 +10,28 @@
 # Usage: ./sql_injection.sh <target_url>
 
 # Get the target URL from command line argument
-target_url="$1"
+output_dir="$1"
 
 # Create a directory for storing the scan results
-output_dir="$HOME/sql_injection_scan"
-mkdir -p "$output_dir"
+output_path="$output_dir/sql_injection"
+mkdir -p "$output_path"
 
-# Run sqlmap for basic SQL injection detection
-echo "[*] Running sqlmap for basic SQL injection detection..."
-sqlmap -u "$target_url" --batch --level 1 --risk 1 -o -f -a | tee "$output_dir/sqlmap-basic.txt"
 
-# Run sqlmap for more advanced SQL injection detection
-echo "[*] Running sqlmap for advanced SQL injection detection..."
-sqlmap -u "$target_url" --batch --level 5 --risk 3 -o -f -a | tee "$output_dir/sqlmap-advanced.txt"
+# Read each subdomain from the file
+while IFS= read -r domain; do
+   
+    echo "[*] Running sqlmap for basic SQL injection detection on $domain..."
+    sqlmap -u "$domain" --batch --level 1 --risk 1 -o -f -a | tee "$output_path/sqlmap-basic.txt"
 
-# Run NoSQLMap for NoSQL injection detection
-echo "[*] Running NoSQLMap for NoSQL injection detection..."
-nosqlmap -u "$target_url" --batch | tee "$output_dir/nosqlmap.txt"
+    # Run sqlmap for more advanced SQL injection detection
+    echo "[*] Running sqlmap for advanced SQL injection detection  on $domain..."
+    sqlmap -u "$domain" --batch --level 5 --risk 3 -o -f -a | tee "$output_path/sqlmap-advanced.txt"
 
-# Run SQLiScanner for SQL injection detection
-echo "[*] Running SQLiScanner for SQL injection detection..."
-sqliscanner -u "$target_url" -o "$output_dir/sqliscanner.txt"
+    # Run NoSQLMap for NoSQL injection detection
+    echo "[*] Running NoSQLMap for NoSQL injection detection on $domain..."
+    nosqlmap -u "$domain" --batch | tee "$output_path/nosqlmap.txt"
 
+    echo "[*] Running SQLiScanner for SQL injection detection on $domain..."
+    sqliscanner -u "$domain" -o "$output_path/sqliscanner.txt"
+done < "$subdomains_file"
 echo "[*] SQL injection scanning completed!"

@@ -58,11 +58,14 @@ mkdir -p "${output_dir}"
 
 "./modules/subdomain_enumeration.sh" "${domain}" "${output_dir}/subdomains.txt" || exit 1
 
-   
+
+#Recon:
 "./modules/port_scanning.sh" "${output_dir}/subdomains.txt" "${output_dir}/portscan.txt" "${scan_mod}" "${scan_speed}"|| exit 1
 "./modules/content_discovery" "${domain}" "${output_dir}" "${scan_mod}" "${scan_speed}" || exit 1
 "./modules/technologies.sh" "${output_dir}/subdomains.txt" "${output_dir}"  || exit 1
 "./modules/links.sh" "${domain}" "${output_dir}"  || exit 1
+#all the information above will go the the first gpt request
+#Vulnerability testing :
 #"./modules/parameters.sh" "${domain}" "${output_dir}"  || exit 1
 "./modules/fuzzing.sh" "${output_dir}"  || exit 1
 "./modules/command_injection.sh" "${output_dir}"  || exit 1
@@ -72,10 +75,13 @@ mkdir -p "${output_dir}"
 "./modules/directory_traversal.sh" "${output_dir}" || exit 1
 #"./modules/file_inclusion.sh" "${output_dir}" || exit 1
 #"./modules/graphql_injection.sh" "${output_dir}" || exit 1
-"./modules/header_injection.sh" "${output_dir}" || exit 1
+#"./modules/header_injection.sh" "${output_dir}" || exit 1
+"./modules/http_splitting.sh" "${output_dir}" || exit 1
+"./modules/sql_injection.sh" "${output_dir}" || exit 1
+"./modules/open_redirect.sh" "${output_dir}" || exit 1
+"./modules/subdomain_takeover.sh" "${output_dir}" || exit 1
 
-
-#for module in  screenshots  header_injection http_splitting sql_injection open_redirect subdomain_takeover vulnerability_scanning; do
+#for module in  screenshots   http_splitting  subdomain_takeover vulnerability_scanning; do
 #    "./modules/${module}.sh" -i "${output_dir}/subdomains.txt" -o "${output_dir}/${module}" -t "${threads}" "${depth}" || exit 1
 #done
 

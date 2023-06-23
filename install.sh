@@ -53,11 +53,7 @@ fi
 
 
 
-# Gospider
-if ! command -v gospider &> /dev/null;then
-    echo "Installing Gospider..."
-    sudo apt install gospider
-fi
+
 
 #wappalyzer/cli
 if ! command -v wappalyzer &>/dev/null; then
@@ -75,11 +71,7 @@ if ! command -v webanalyze &>/dev/null; then
 fi
 
 
-# hakrawler
-if ! command -v hakrawler &> /dev/null;then
-    echo "Installing hakrawler..."
-    sudo apt install hakrawler
-fi
+
 
 
 
@@ -106,19 +98,36 @@ fi
 #getallurls (gau)
 go install github.com/lc/gau/v2/cmd/gau@latest
 
+#getallurls (headi)
+go install github.com/mlcsec/headi@latest
 
 
 echo "Installing ParamSpider..."
 git clone https://github.com/devanshbatham/ParamSpider /opt/ParamSpider
 
+echo "Installing Injectus..."
+git clone https://github.com/dubs3c/Injectus.git /opt/Injectus
+
+
+
 echo "Installing gf..."
 go get -u github.com/tomnomnom/gf
 
+sudo apt install hakrawler
+sudo apt install gospider
 sudo apt install wfuzz
 sudo apt install ffuf
 sudo apt install commix
 sudo apt install dotdotpwn
-
+sudo apt install sqlmap
+sudo apt install dnsenum
+sudo apt install arjun
+sudo apt install dirsearch
+sudo apt install dirsearch
+sudo apt install gobuster
+sudo apt install assetfinder
+sudo apt install massdns
+sudo apt install subfinder
 
 echo "Installing FDsploit..."
 git clone https://github.com/chrispetrou/FDsploit.git /opt/FDsploit
@@ -128,6 +137,9 @@ git clone https://github.com/swisskyrepo/GraphQLmap /opt/GraphQLmap
 python setup.py install
 
 
+git clone https://github.com/r0075h3ll/Oralyzer.git /opt/Oralyzer
+
+
 # Check if fuzzdb is installed and clone it if not
 if [ ! -d "fuzzdb" ]
 then
@@ -135,26 +147,13 @@ then
     git clone https://github.com/fuzzdb-project/fuzzdb.git /opt/
 fi
 
-if ! command -v arjun &> /dev/null;then
-    echo "Installing arjun..."
-    sudo apt install arjun
-fi
-
-if ! command -v dirsearch &> /dev/null;then
-    echo "Installing Dirsearch..."
-    sudo apt install dirsearch
-fi
 
 
-# Install Dirsearch
-if ! command -v dirsearch &> /dev/null;then
-    echo "Installing Dirsearch..."
-    sudo apt install dirsearch
-fi
-# Install gobuster
-if ! command -v gobuster  &> /dev/null;then
-   sudo apt install gobuster
-fi
+
+
+
+
+
 # Install httpx
 if ! command -v httpx &> /dev/null;then
     echo "Installing httpx..."
@@ -173,11 +172,7 @@ if ! command -v naabu &> /dev/null;then
     sudo GO111MODULE=on go get -u -v github.com/projectdiscovery/naabu/v2/cmd/naabu
 fi
 
-# Install assetfinder
-if ! command -v assetfinder &> /dev/null;then
-    echo "Installing assetfinder..."
-    sudo apt install assetfinder
-fi
+
 
 # Install amass
 if ! command -v amass &> /dev/null;then
@@ -186,16 +181,9 @@ if ! command -v amass &> /dev/null;then
     sudo snap install amass
 fi
 
-# Install subfinder
-if ! command -v subfinder &> /dev/null;then
-    echo "Installing subfinder..."
-    sudo apt install subfinder
-fi
 
-# Install massdns
-if ! command -v massdns &> /dev/null;then
-    sudo apt install massdns
-fi
+
+
 
 # Install shuffledns
 if ! command -v shuffledns &> /dev/null;then
@@ -291,11 +279,7 @@ if ! command -v LinkFinder &> /dev/null;then
     source ~/.bashrc
 fi
 
-# Install dnsenum
-if ! command -v subfinder &> /dev/null;then
-    echo "Installing dnsenum..."
-    sudo apt install dnsenum
-fi
+
 
 
 
