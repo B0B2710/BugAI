@@ -146,14 +146,29 @@ then
     echo "[*] Cloning fuzzdb repository..."
     git clone https://github.com/fuzzdb-project/fuzzdb.git /opt/
 fi
+# Set up variables
+TsOOLS_DIR="$HOME/tools"
+NUCLEI_REPO="https://github.com/projectdiscovery/nuclei.git"
+SN1PER_REPO="https://github.com/1N3/Sn1per.git"
 
+# Create tools directory
+mkdir -p $TsOOLS_DIR
+cd $TsOOLS_DIR
 
+# Install Nuclei
+echo "Installing Nuclei..."
+git clone $NUCLEI_REPO
+cd nuclei/v2/cmd/nuclei/
+go build
+sudo mv nuclei /usr/local/bin/
 
+# Install Sn1per
+echo "Installing Sn1per..."
+git clone $SN1PER_REPO
+cd Sn1per
+bash install.sh
 
-
-
-
-
+echo "Tool installation complete!"
 # Install httpx
 if ! command -v httpx &> /dev/null;then
     echo "Installing httpx..."
