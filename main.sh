@@ -77,6 +77,7 @@ mkdir -p "${output_dir}"
 "./modules/sql_injection.sh" "${output_dir}" || exit 1
 "./modules/open_redirect.sh" "${output_dir}" || exit 1
 "./modules/subdomain_takeover.sh" "${output_dir}" || exit 1
+"./modules/vulnerability_scanning.sh" "${output_dir}" || exit 1
 
 
 #for module in  screenshots   http_splitting  subdomain_takeover vulnerability_scanning; do
