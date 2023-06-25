@@ -13,12 +13,12 @@ fi
 echo "[] Starting race condition testing..."
 
 # razzer
-echo "[] Running razzer..."
-razzer --url "$domain" --cookie "sessionid=1" --threads 10 -o "$output_dir/razzer.txt"
+#echo "[] Running razzer..."
+#razzer --url "$domain" --cookie "sessionid=1" --threads 10 -o "$output_dir/razzer.txt"
 
 # racepwn
-echo "[] Running racepwn..."
-racepwn -u "$domain" -o "$output_dir/racepwn.txt"
+#echo "[] Running racepwn..."
+#racepwn -u "$domain" -o "$output_dir/racepwn.txt"
 
 echo "[] Race condition testing completed!"
 

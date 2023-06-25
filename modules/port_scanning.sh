@@ -1,11 +1,7 @@
 #!/bin/bash
 
 
-if [ -z "$1" ] || [ -z "$3"]
-then
-    echo "Usage: ./port_scanning.sh <ip_address> <output_dir (optional)> <scan_mod>"
-    exit 1
-fi
+
 
 ip=""
 subdomains=$1

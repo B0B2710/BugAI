@@ -1,5 +1,5 @@
 #!/bin/bash
-
+sudo apt-get install dos2unix
 # Update package list and install necessary tools
 sudo apt-get update
 sudo apt-get -y install nmap curl git python3-pip jq dnsutils
@@ -53,22 +53,25 @@ fi
 
 
 
+#installing GadgetProbe
+echo "Installing GadgetProbe..."
+git clone https://github.com/BishopFox/GadgetProbe.git /opt/GadgetProbe && (cd /opt/GadgetProbe && ./gradlew jar) && cd -
+
+
+
+
+
 
 
 #wappalyzer/cli
 if ! command -v wappalyzer &>/dev/null; then
-    echo "Installing wappalyzer/cli..."
+    echo "Installing wappalyzer-cli..."
     # Install wappalyzer/cli using npm
     sudo npm install -g wappalyzer-cli
 fi
 
 # webanalyze
-if ! command -v webanalyze &>/dev/null; then
-    echo "Installing webanalyze..."
-    # Install webanalyze using apt
-    sudo apt update
-    sudo apt install -y webanalyze
-fi
+
 
 
 
@@ -115,6 +118,7 @@ go get -u github.com/tomnomnom/gf
 
 
 
+
 sudo apt install subjack
 sudo apt install hakrawler
 sudo apt install gospider
@@ -131,6 +135,8 @@ sudo apt install gobuster
 sudo apt install assetfinder
 sudo apt install massdns
 sudo apt install subfinder
+sudo apt install webanalyze
+
 
 echo "Installing FDsploit..."
 git clone https://github.com/chrispetrou/FDsploit.git /opt/FDsploit
@@ -149,29 +155,14 @@ then
     echo "[*] Cloning fuzzdb repository..."
     git clone https://github.com/fuzzdb-project/fuzzdb.git /opt/fuzzdb
 fi
-# Set up variables
-TsOOLS_DIR="$HOME/tools"
-NUCLEI_REPO="https://github.com/projectdiscovery/nuclei.git"
-SN1PER_REPO="https://github.com/1N3/Sn1per.git"
 
-# Create tools directory
-mkdir -p $TsOOLS_DIR
-cd $TsOOLS_DIR
 
-# Install Nuclei
-echo "Installing Nuclei..."
-git clone $NUCLEI_REPO
-cd nuclei/v2/cmd/nuclei/
-go build
-sudo mv nuclei /usr/local/bin/
 
-# Install Sn1per
-echo "Installing Sn1per..."
-git clone $SN1PER_REPO
-cd Sn1per
-bash install.sh
 
-echo "Tool installation complete!"
+
+
+
+
 # Install httpx
 if ! command -v httpx &> /dev/null;then
     echo "Installing httpx..."
@@ -179,10 +170,7 @@ if ! command -v httpx &> /dev/null;then
 fi
 
 # Install nuclei
-if ! command -v nuclei &> /dev/null;then
-    echo "Installing nuclei..."
-    sudo GO111MODULE=on go get -u -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei
-fi
+go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
 
 # Install naabu
 if ! command -v naabu &> /dev/null;then

@@ -2,14 +2,9 @@
 
 # Request Smuggling
 
-# Check if a domain was provided as an argument
-if [ -z "$1" ]; then
-  echo "Please provide a domain to test as an argument."
-  exit 1
-fi
 
-domain="$1"
-output_dir="output/$domain/request_smuggling"
+subdomains_file="${output_dir}/subdomains.txt"
+output_dir="$1/request_smuggling"
 mkdir -p "$output_dir"
 
 # http-request-smuggling

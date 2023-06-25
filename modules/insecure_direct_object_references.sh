@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Variables
-domain=$1
-output_dir=$2
+output_dir=$1
 
 # Create output directory
 mkdir -p "$output_dir"

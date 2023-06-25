@@ -64,20 +64,24 @@ mkdir -p "${output_dir}"
 #all the information above will go the the first gpt request
 #Vulnerability testing :
 #"./modules/parameters.sh" "${domain}" "${output_dir}"  || exit 1
-"./modules/fuzzing.sh" "${output_dir}"  || exit 1
-"./modules/command_injection.sh" "${output_dir}"  || exit 1
-"./modules/cors_misconfiguration.sh" "${output_dir}"  || exit 1
-"./modules/crlf_injection.sh" "${output_dir}" "${threads}" || exit 1
+#"./modules/fuzzing.sh" "${output_dir}"  || exit 1
+#"./modules/command_injection.sh" "${output_dir}"  || exit 1
+#"./modules/cors_misconfiguration.sh" "${output_dir}"  || exit 1
+#"./modules/crlf_injection.sh" "${output_dir}" "${threads}" || exit 1
 #"./modules/csrf_injection.sh" "${output_dir}" "${threads}" || exit 1
-"./modules/directory_traversal.sh" "${output_dir}" || exit 1
+#"./modules/directory_traversal.sh" "${output_dir}" || exit 1
 #"./modules/file_inclusion.sh" "${output_dir}" || exit 1
 #"./modules/graphql_injection.sh" "${output_dir}" || exit 1
 #"./modules/header_injection.sh" "${output_dir}" || exit 1
-"./modules/http_splitting.sh" "${output_dir}" || exit 1
-"./modules/sql_injection.sh" "${output_dir}" || exit 1
-"./modules/open_redirect.sh" "${output_dir}" || exit 1
-"./modules/subdomain_takeover.sh" "${output_dir}" || exit 1
-"./modules/vulnerability_scanning.sh" "${output_dir}" || exit 1
+#"./modules/insecure_deserialization.sh" "${output_dir}" || exit 1 #need to find a solution for ysoserial.net
+#"./modules/insecure_direct_object_references.sh" "${output_dir}" || exit 1
+#"./modules/http_splitting.sh" "${output_dir}" || exit 1
+#"./modules/sql_injection.sh" "${output_dir}" || exit 1
+#"./modules/open_redirect.sh" "${output_dir}" || exit 1 
+#"./modules/race_condition.sh" "${output_dir}" || exit 1 to hard to understand
+#"./modules/request_smuggling.sh" "${output_dir}" || exit 1
+#"./modules/subdomain_takeover.sh" "${output_dir}" || exit 1
+#"./modules/vulnerability_scanning.sh" "${output_dir}" || exit 1
 
 
 #for module in  screenshots   http_splitting  subdomain_takeover vulnerability_scanning; do
