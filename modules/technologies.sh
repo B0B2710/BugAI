@@ -21,16 +21,16 @@ while read -r subdomain; do
 done < "$subdomains_file"
 
 # Consolidate results into a single text file
-echo "[*] Consolidating results..."
-cat "$output_dir/wappalyzer.json" > "$output_dir/technologies.txt"
-cat "$output_dir/webanalyze.json" >> "$output_dir/technologies.txt"
-for file in "$output_dir/wappalyzer_"*.json; do
-    cat "$file" >> "$output_dir/technologies.txt"
-    rm "$file"  # Remove individual JSON file
-done
-for file in "$output_dir/webanalyze_"*.json; do
-    cat "$file" >> "$output_dir/technologies.txt"
-    rm "$file"  # Remove individual JSON file
-done
+#echo "[*] Consolidating results..."
+#cat "$output_dir/wappalyzer.json" > "$output_dir/technologies.txt"
+#cat "$output_dir/webanalyze.json" >> "$output_dir/technologies.txt"
+#for file in "$output_dir/wappalyzer_"*.json; do
+#    cat "$file" >> "$output_dir/technologies.txt"
+#    rm "$file"  # Remove individual JSON file
+#done
+#for file in "$output_dir/webanalyze_"*.json; do
+#    cat "$file" >> "$output_dir/technologies.txt"
+#    rm "$file"  # Remove individual JSON file
+#done
 
-echo "[+] Technology detection complete! Consolidated results saved to: $output_dir/technologies.txt"
+#echo "[+] Technology detection complete! Consolidated results saved to: $output_dir/technologies.txt"
