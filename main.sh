@@ -110,3 +110,10 @@ mkdir -p "${output_dir}"
 #"./modules/report_generator.sh" -i "${output_dir}" -o "${output_dir}/final_report.txt" || exit 1
  
 echo "Pentesting completed successfully. Results can be found in ${output_dir}/final_report.txt."
+
+
+
+
+#input:scope and rules for chat-gpt out:params for port_scannig,subdomian,cotact descovier
+#port_scannig,subdomian,cotact descovier,list for tools for chat-gpt out:params for every one
+#in:combined output of tools for chat-gpt out:soultion for probloms
