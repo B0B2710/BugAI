@@ -6,7 +6,7 @@ threads=10
 scan_mod="a"
 scan_speed="m"
 proxy_file=""
-
+rate_limit=
 
 
 
@@ -17,6 +17,7 @@ show_help() {
     echo "  -Pm, scan mod : a,A = agresive s,S = silent d,D = defult"
     echo "  -Ps, scan speed : m,M = meduim s,S = slow f,F = fast"
     echo "  -P, add a proxy file for all the scanners"
+    echo "  -Rl, rate limit, how mant request pre seccond"
     echo "  -t, threads deafult 10"
     echo "  -d, domain"
     echo "  -o, output_dir"
@@ -25,11 +26,12 @@ show_help() {
 
 
 # Parse command line arguments
-while getopts "d:o:P:t:Pm:Ps:h" opt; do
+while getopts "d:o:P:Rl:t:Pm:Ps:h" opt; do
     case "${opt}" in
         d) domain="${OPTARG}" ;;
         o) output_dir="${OPTARG}" ;;
         P) proxy_file="${OPTARG}" ;;
+        Rl) rate_limit="${OPTARG}" ;;
         t) threads="${OPTARG}" ;; 
         Pm) scan_mod="${OPTARG}" ;;
         Ps) scan_speed="${OPTARG}" ;;
@@ -61,6 +63,8 @@ mkdir -p "${output_dir}"
 "./modules/content_discovery" "${domain}" "${output_dir}" "${scan_mod}" "${scan_speed}" || exit 1
 "./modules/technologies.sh" "${output_dir}/subdomains.txt" "${output_dir}"  || exit 1
 "./modules/links.sh" "${domain}" "${output_dir}"  || exit 1
+#"./modules/wordpresscheck.sh" "${output_dir}" || exit 1 
+#"./modules/cms.sh" "${output_dir}" || exit 1 
 #all the information above will go the the first gpt request
 #Vulnerability testing :
 #"./modules/parameters.sh" "${domain}" "${output_dir}"  || exit 1
@@ -76,12 +80,26 @@ mkdir -p "${output_dir}"
 #"./modules/insecure_deserialization.sh" "${output_dir}" || exit 1 #need to find a solution for ysoserial.net
 #"./modules/insecure_direct_object_references.sh" "${output_dir}" || exit 1
 #"./modules/http_splitting.sh" "${output_dir}" || exit 1
-#"./modules/sql_injection.sh" "${output_dir}" || exit 1
 #"./modules/open_redirect.sh" "${output_dir}" || exit 1 
 #"./modules/race_condition.sh" "${output_dir}" || exit 1 to hard to understand
 #"./modules/request_smuggling.sh" "${output_dir}" || exit 1
-#"./modules/subdomain_takeover.sh" "${output_dir}" || exit 1
-#"./modules/vulnerability_scanning.sh" "${output_dir}" || exit 1
+#"./modules/server_side_request_forgery.sh" "${output_dir}" || exit 1
+#"./modules/sql_injection.sh" "${output_dir}" || exit 1
+#"./modules/xss_injection.sh" "${output_dir}" || exit 1 
+#"./modules/xxe_injection.sh" "${output_dir}" || exit 1 #need to find tools that can be added (not done)
+#"./modules/buckets.sh" "${output_dir}" || exit 1 (not done)
+#"./modules/json_web_token.sh" "${output_dir}" || exit 1 #we need to check first if the site even uses JWT (not done)
+#"./modules/post_message.sh" "${output_dir}" || exit 1 #tools cant be imported (not done)
+
+#"./modules/subdomain_takeover.sh" "${output_dir}" || exit 1 #(not done,i have no idea how to use can-i-take-over-xyz )
+"./modules/vulnerability_scanning.sh" "${output_dir}" "${scan_mod}" "${scan_speed}" || exit 1
+
+
+
+
+#useless:
+#"./modules/passwords.sh" || exit 1 #i have no idea what we should do with this (its a basic account brute force )
+#"./modules/secrets.sh" || exit 1 #it check for api,passwords etc.. but in our code 
 
 
 #for module in  screenshots   http_splitting  subdomain_takeover vulnerability_scanning; do
@@ -90,5 +108,5 @@ mkdir -p "${output_dir}"
 
 # Generate final report
 #"./modules/report_generator.sh" -i "${output_dir}" -o "${output_dir}/final_report.txt" || exit 1
-
+ 
 echo "Pentesting completed successfully. Results can be found in ${output_dir}/final_report.txt."

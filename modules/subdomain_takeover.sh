@@ -3,9 +3,7 @@
 output_dir=$1
 subdomains_file="${output_dir}/subdomains.txt"
 
-# Tools required
-subover_path="/opt/SubOver/subover.py"
-autosubtakeover_path="/opt/autosubtakeover/autosubtakeover.py"
+
 can_i_take_over_xyz_path="/opt/can-i-take-over-xyz/can-i-take-over-xyz.py"
 
 # Output file
@@ -24,23 +22,20 @@ while IFS= read -r domain; do
     # Run subjack
     echo "[*] Running subjack on $domain..."
     subjack -a -d $domain -t 10 -ssl -v -o $output_file
-    # Run FDsploit
-    echo "[*] Running FDsploit on $domain..."
+
+
+
 
 
 done < "$subdomains_file"
 
 
-
-
-# Subdomain Takeover using SubOver
-echo "[*] Running SubOver..."
-python3 $subover_path -l subdomains_file -t 20 >> $output_file
-
-# Subdomain Takeover using autosubtakeover
+# Run autosubtakeover. the tools accepts lists so no need for loop 
 echo "[*] Running autosubtakeover..."
-python3 $autosubtakeover_path -w $1 -o $output_file -t 20
+autosubtakeover --wordlist $subdomains_file -t 10 -o $output_file
 
+
+#no idea
 # Subdomain Takeover using can-i-take-over-xyz
 echo "[*] Running can-i-take-over-xyz..."
 python3 $can_i_take_over_xyz_path -d $1 -o $output_file

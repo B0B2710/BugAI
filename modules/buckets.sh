@@ -4,27 +4,29 @@
 function check_program_installed {
     command -v "$1" >/dev/null 2>&1
 }
+subdomains_file="${output_dir}/subdomains.txt"
 
-# Check if S3Scanner is installed
-if check_program_installed "S3Scanner"; then
-    echo "S3Scanner found."
-    # Prompt user for input
-    read -p "Enter the name of the bucket to scan: " bucket_name
-    # Run S3Scanner and save output to a file
-    S3Scanner -s $bucket_name > s3scanner_results.txt
-    echo "S3Scanner scan complete. Results saved to s3scanner_results.txt."
-else
-    echo "S3Scanner not found. Please install S3Scanner to use this tool."
-fi
 
-# Check if AWSBucketDump is installed
-if check_program_installed "AWSBucketDump"; then
-    echo "AWSBucketDump found."
-    # Prompt user for input
-    read -p "Enter the name of the bucket to scan: " bucket_name
-    # Run AWSBucketDump and save output to a file
-    AWSBucketDump -b $bucket_name > awsbucketdump_results.txt
-    echo "AWSBucketDump scan complete. Results saved to awsbucketdump_results.txt."
-else
-    echo "AWSBucketDump not found. Please install AWSBucketDump to use this tool."
-fi
+# Run vulnerability scanning on each subdomain
+while read -r subdomain; do
+    echo "Running S3Scanner scanning on $subdomain..."
+    S3Scanner -s $subdomain > s3scanner_results.txt
+    echo "Running AWSBucketDump scanning on $subdomain..."
+    python3  /opt/AWSBucketDump/AWSBucketDump.py -b $subdomain > awsbucketdump_results.txt
+    
+done < "$subdomains_file"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+echo "done buckets scanning"

@@ -2,7 +2,7 @@
 sudo apt-get install dos2unix
 # Update package list and install necessary tools
 sudo apt-get update
-sudo apt-get -y install nmap curl git python3-pip jq dnsutils
+sudo apt-get -y install nmap curl git python3-pip jq dnsutils 
 pip3 install -r requirements.txt
 
 #installed in requirements :CORScanner,paramspider,xsrfprobe,CRLFsuite
@@ -103,7 +103,8 @@ go install github.com/lc/gau/v2/cmd/gau@latest
 
 #getallurls (headi)
 go install github.com/mlcsec/headi@latest
-
+#installing dalfox
+go install github.com/hahwul/dalfox/v2@latest
 
 echo "Installing ParamSpider..."
 git clone https://github.com/devanshbatham/ParamSpider /opt/ParamSpider
@@ -111,14 +112,15 @@ git clone https://github.com/devanshbatham/ParamSpider /opt/ParamSpider
 echo "Installing Injectus..."
 git clone https://github.com/dubs3c/Injectus.git /opt/Injectus
 
-
+echo "Installing AWSBucketDump..."
+git clone https://github.com/jordanpotti/AWSBucketDump.git /opt/AWSBucketDump
 
 echo "Installing gf..."
 go get -u github.com/tomnomnom/gf
 
 
 
-
+sudo apt install wpscan
 sudo apt install subjack
 sudo apt install hakrawler
 sudo apt install gospider
@@ -136,6 +138,10 @@ sudo apt install assetfinder
 sudo apt install massdns
 sudo apt install subfinder
 sudo apt install webanalyze
+sudo apt install naabu
+sudo apt install nikto
+sudo apt install wapiti
+sudo apt install joomscan
 
 
 echo "Installing FDsploit..."
@@ -149,6 +155,10 @@ python setup.py install
 git clone https://github.com/r0075h3ll/Oralyzer.git /opt/Oralyzer
 
 
+git clone https://github.com/ticarpi/jwt_tool
+
+
+
 # Check if fuzzdb is installed and clone it if not
 if [ ! -d "fuzzdb" ]
 then
@@ -156,8 +166,8 @@ then
     git clone https://github.com/fuzzdb-project/fuzzdb.git /opt/fuzzdb
 fi
 
-
-
+#install ground-control 
+#git clone https://github.com/jobertabma/ground-control.git /opt/ground-control && cd /opt/ground-control && go build -o ground-control cmd/ground-control/main.go && sudo mv ground-control /usr/local/bin
 
 
 
@@ -171,12 +181,6 @@ fi
 
 # Install nuclei
 go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
-
-# Install naabu
-if ! command -v naabu &> /dev/null;then
-    echo "Installing naabu..."
-    sudo GO111MODULE=on go get -u -v github.com/projectdiscovery/naabu/v2/cmd/naabu
-fi
 
 
 
@@ -207,17 +211,7 @@ change_directory() {
   ( cd "$1" && "$2" )
 }
 # Bash Tools Installation
-if ! command -v XSStrike &> /dev/null;then
-  echo "Installing XSStrike..."
-  sudo git clone https://github.com/s0md3v/XSStrike.git /opt/XSStrike
-  sudo ln -s /opt/XSStrike/xsstrike.py /usr/bin/XSStrike
-fi
 
-if ! command -v dalfox &> /dev/null;then
-  echo "Installing dalfox..."
-  sudo git clone https://github.com/hahwul/dalfox.git /opt/dalfox
-  sudo ln -s /opt/dalfox/dalfox /usr/bin/dalfox
-fi
 
 if ! command -v NoSQLMap &> /dev/null;then
   echo "Installing NoSQLMap..."
@@ -233,17 +227,10 @@ if ! command -v SSRFmap &> /dev/null;then
   sudo ln -s /opt/SSRFmap/ssrfmap.py /usr/bin/SSRFmap
 fi
 
-if ! command -v Gopherus &> /dev/null;then
-  echo "Installing Gopherus..."
-  sudo git clone https://github.com/tarunkant/Gopherus.git /opt/Gopherus
-  sudo ln -s /opt/Gopherus/gopherus.py /usr/bin/Gopherus
-fi
+# Install Gopherus
+echo "Installing Gopherus..."
+git clone https://github.com/tarunkant/Gopherus.git && cd Gopherus && chmod +x gopherus.py && sudo ln -sf "$(pwd)/gopherus.py" /usr/local/bin/gopherus
 
-if ! command -v ground-control &> /dev/null;then
-  echo "Installing ground-control..."
-  sudo git clone https://github.com/jobertabma/ground-control.git /opt/ground-control
-  sudo ln -s /opt/ground-control/ground-control /usr/bin/ground-control
-fi
 
 if ! command -v feroxbuster &> /dev/null;then
   echo "Installing feroxbuster..."
@@ -254,11 +241,7 @@ fi
 # Burp Suite
 # OWASP ZAP
 
-if ! command -v nikto &> /dev/null;then
-  echo "Installing nikto..."
-  sudo git clone https://github.com/sullo/nikto.git /opt/nikto
-  sudo ln -s /opt/nikto/nikto.pl /usr/bin/nikto
-fi
+
 
 # Nessus
 #need to be added

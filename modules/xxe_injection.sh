@@ -1,14 +1,10 @@
 #!/bin/bash
 
-# Input validation
-if [ $# -lt 1 ]; then
-    echo "Usage: $0 <target_url>"
-    exit 1
-fi
 
 # Variables
-target_url=$1
-output_dir="xxe_injection_scan"
+output_dir=$1
+subdomains_file="${output_dir}/subdomains.txt"
+output_file="${output_dir}/xxe_injection"
 
 # Create output directory if it does not exist
 if [ ! -d "$output_dir" ]; then

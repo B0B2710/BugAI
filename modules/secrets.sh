@@ -6,12 +6,21 @@ function usage {
     echo "  target: the target directory to scan for secrets (default: current directory)"
 }
 
+
+output_dir=$1
+subdomains_file="${output_dir}/subdomains.txt"
+output_file="${output_dir}/secrets"
+mkdir -p "$output_dir"
+
+
 # Check if target is provided, else use current directory
 if [ $# -eq 0 ]; then
     target="."
 else
     target="$1"
 fi
+
+
 
 # Check if target directory exists
 if [ ! -d "$target" ]; then
