@@ -37,7 +37,7 @@ def get_params_for_tools(scope_text, rules_text, tools_list):
     params_list = []
 
     for tool in tools_list:
-        conversation_log = [{'role': 'system', 'content': f'important part plz remeber:make parms for {tool},masscan and make sure you answer only the parms in this format "{tool}: (the parms for the command)" instead of saying all the domains u can refer to it as $domains and dont include output parms, the scan must be as affective as it can be but not overpass the rules, the , without explaining anything,DONT EXPLAIN , doesnt matter what you CANT EXPLAIN JUST GIVE THE PLAIN COMMAND!!. based on scope "{scope_text}" and rules "{rules_text}" '}]
+        conversation_log = [{'role': 'system', 'content': f'important part plz remeber:  based on scope ["{scope_text}"] and rules ["{rules_text}"] make parms for {tool} and make sure you answer only the parms in this format "{tool}: (the parms for the command)" instead of saying all the domains u can refer to it as $domains and dont include output parms,(really important!: always comply with the rules), without explaining anything,Dont Explain,and double check that the command follows the stated rules'}]
         conversation_log = chatgpt_conversation(conversation_log)
         params = conversation_log[-1]['content']
         params_list.append(params)
@@ -50,7 +50,6 @@ if __name__ == "__main__":
     tools_list = ["nmap", "masscan"]  # Replace with your list of tools
 
     scope_text = extract_identifiers(scope_csv_path)
-    print(scope_text)
     rules_text = read_file(rules_file_path)
 
     params_list = get_params_for_tools(scope_text, rules_text, tools_list)
