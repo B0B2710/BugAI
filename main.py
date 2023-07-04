@@ -25,13 +25,16 @@ def read_file(filename):
 
 
 def get_text_between_quotes(text):
+    #finish this one and run run_scan1 
   """Gets the text between two sets of double quotes."""
   start_index = text.find("'''")
   end_index = text.find("'''", start_index + 3)
   return text[start_index + 3:end_index]
 
-
-
+#args list format [nmap -a -b -c -bbc ,masscan -a -b -c -bbc]
+def run_scan1(args_as_list):
+    args_string = ' '.join(args_as_list)
+    subprocess.call(["bash", "scan1.sh", args_string])
 
 def get_arg_for_tools(scope_text, rules_text, tools_list):
 

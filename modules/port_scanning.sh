@@ -11,6 +11,14 @@ scan_speed=$4
 ip_addresses=""
 
 
+
+
+
+
+
+
+
+
 get_subdomain_ips() {
     local domain="$1"
 
@@ -56,7 +64,7 @@ nmapScanHandler() {
 }
 # Nmap
 echo "[*] Running Nmap..."
-nmapScanHandler
+#nmapScanHandler
 
 
 
@@ -84,7 +92,7 @@ masscanScanHandler(){
     done
 
 }
-masscanScanHandler
+#masscanScanHandler
 echo "[*] Running Masscan..."
 
 
