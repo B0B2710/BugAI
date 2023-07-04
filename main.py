@@ -1,10 +1,12 @@
-import openai
+
 import pandas as pd
 import csv
+from bardapi import Bard
 
-API_KEY = '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'  # Replace with your actual API key
-openai.api_key = API_KEY
-model_id = 'gpt-3.5-turbo'
+#API_KEY = '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'  # Replace with your actual API key
+
+token = 'XwjlF04MT1t5eGHPdg7-YgaoekM_RD9JpccHjGXhDRJpQZTk4L41lJhI1VQZQFVK925JZA.'
+bardcode = Bard(token=token, run_code=True)
 
 def extract_identifiers(csv_file):
     identifiers = []
@@ -16,33 +18,25 @@ def extract_identifiers(csv_file):
                 identifiers.append(identifier)
     return identifiers
 
-def chatgpt_conversation(conversation_log):
-    response = openai.ChatCompletion.create(
-        model=model_id,
-        messages=conversation_log
-    )
-
-
-    conversation_log.append({
-        'role': response.choices[0].message['role'], 
-        'content': response.choices[0].message['content'].strip()
-    })
-    return conversation_log
 
 def read_file(filename):
     with open(filename, 'r', encoding='utf-8') as file:
         return file.read()
 
-def get_params_for_tools(scope_text, rules_text, tools_list):
-    params_list = []
 
-    for tool in tools_list:
-        conversation_log = [{'role': 'system', 'content': f'important part plz remeber:  based on scope ["{scope_text}"] and rules ["{rules_text}"] make parms for {tool} and make sure you answer only the parms in this format "{tool}: (the parms for the command)" instead of saying all the domains u can refer to it as $domains and dont include output parms,(really important!: always comply with the rules), without explaining anything,Dont Explain,and double check that the command follows the stated rules'}]
-        conversation_log = chatgpt_conversation(conversation_log)
-        params = conversation_log[-1]['content']
-        params_list.append(params)
+def get_text_between_quotes(text):
+  """Gets the text between two sets of double quotes."""
+  start_index = text.find("'''")
+  end_index = text.find("'''", start_index + 3)
+  return text[start_index + 3:end_index]
 
-    return params_list
+
+
+
+def get_arg_for_tools(scope_text, rules_text, tools_list):
+
+    arg = bardcode.get_answer(f'based on scope ["{scope_text}"] and rules "{rules_text}" make parms for {tools_list} and answer in this format "nmap (the parms for the command)," instead of saying all the domains u can refer to it as $domains and dont include output parms')['content']
+    return arg
 
 if __name__ == "__main__":
     scope_csv_path = "scope.csv"
@@ -52,5 +46,5 @@ if __name__ == "__main__":
     scope_text = extract_identifiers(scope_csv_path)
     rules_text = read_file(rules_file_path)
 
-    params_list = get_params_for_tools(scope_text, rules_text, tools_list)
+    params_list = get_arg_for_tools(scope_text, rules_text, tools_list)
     print(params_list)

@@ -23,3 +23,6 @@ awk '{print $1}' subdomains_massdns.txt | sort -u >> "$output_file"
 echo "$domain" >> "$output_file"
 rm subdomains_massdns.txt
 echo " subdomain_enurmeration done"
+
+
+
