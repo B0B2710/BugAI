@@ -10,14 +10,6 @@ nmap_args=$2
 
 
 
-
-
-
-
-
-
-
-
 get_subdomain_ips() {
 
     # Iterate over subdomains and retrieve IP addresses
@@ -36,8 +28,9 @@ get_subdomain_ips() {
 get_subdomain_ips
 
 
-for ip in "${ip_addresses[@]}"
+for domain in "${ip_addresses[@]}"
 do
+echo "[*] Running Nmap on ${domain}"
 nmap $nmap_args
 done
 
@@ -69,36 +62,8 @@ nmapScanHandler() {
 
 }
 # Nmap
-echo "[*] Running Nmap..."
-#nmapScanHandler
 
 
-
-# Masscan
-
-#masscan -p1-65535 $ip_address -oL $output_dir/masscan.txt --rate=10000
-masscanScanHandler(){
-    
-    if [[ "$scan_speed" == "s" ]]; then
-        speed="1000"
-    elif [[ "$scan_speed" == "m" ]]; then
-        speed="5000"
-    elif [[ "$scan_speed" == "f" ]]; then
-        speed="10000"
-    fi
-
-    for ip in "${ip_addresses[@]}"; do
-        if [[ $scan_mod == "a" ]]; then
-            sudo masscan -p1-65535 "$ip" -oL "$output_dir/masscan.txt" --rate "$speed"
-        elif [[ $scan_mod == "s" || $scan_mod == "S" ]]; then
-            sudo masscan -sS -Pn -p1-65535 "$ip" -oL "$output_dir/masscan.txt" --rate "$speed"
-        elif [[ $scan_mod == "d" || $scan_mod == "D" ]]; then
-            sudo masscan -sU -p1-65535 "$ip" -oL "$output_dir/masscan.txt" --rate "$speed"
-        fi
-    done
-
-}
-#masscanScanHandler
 
 
 

@@ -3,6 +3,7 @@ import pandas as pd
 import csv
 from bardapi import Bard
 import re
+import subprocess
 import time
 import openai
 import pandas as pd
