@@ -2,13 +2,12 @@
 
 
 
-
+output_dir=$1
 ip=""
-subdomains=$1
-output_dir=$2
-scan_mod=$3
-scan_speed=$4
+subdomains="${output_dir}/subdomains.txt"
 ip_addresses=""
+nmap_args=$2
+
 
 
 
@@ -20,7 +19,6 @@ ip_addresses=""
 
 
 get_subdomain_ips() {
-    local domain="$1"
 
     # Iterate over subdomains and retrieve IP addresses
     for subdomain in $subdomains; do
@@ -34,7 +32,15 @@ get_subdomain_ips() {
     done
 }
 
+
 get_subdomain_ips
+
+
+for ip in "${ip_addresses[@]}"
+do
+nmap $nmap_args
+done
+
 #nmap
 #nmap -sS -p- -sV -T4 -iL $outdir/masscan.txt -oA $outdir/nmap
 nmapScanHandler() {
@@ -93,7 +99,7 @@ masscanScanHandler(){
 
 }
 #masscanScanHandler
-echo "[*] Running Masscan..."
+
 
 
 

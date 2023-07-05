@@ -32,4 +32,4 @@ tornado
 aiodns
 asyncio
 panda
-openai
+bardapi

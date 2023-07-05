@@ -7,7 +7,6 @@ import re
 
 token = 'XwjlF04MT1t5eGHPdg7-YgaoekM_RD9JpccHjGXhDRJpQZTk4L41lJhI1VQZQFVK925JZA.'
 bardcode = Bard(token=token)
-
 def extract_identifiers(csv_file):
     identifiers = []
     with open(csv_file, 'r') as file:
