@@ -73,6 +73,7 @@ if __name__ == "__main__":
         conversation_log = [{'role': 'system', 'content':f'extract the bash command from "{e["content"]}" without the tool name and print it out without additional text '}]
         conversation_log = chatgpt_conversation(conversation_log)
         finalcomms.append(conversation_log[-1]['content'])
+        time.sleep(5)
     print (finalcomms)
     run_scan1(finalcomms,scope_text)
 
