@@ -31,7 +31,7 @@ get_subdomain_ips
 for domain in "${ip_addresses[@]}"
 do
 echo "[*] Running Nmap on ${domain}"
-nmap $nmap_args
+$nmap_args
 done
 
 #nmap
