@@ -48,11 +48,25 @@ def run_scan1(args_as_list,scope_text):
     args_string = ' '.join(args_as_list)
     scope_string = ' '.join(scope_text)
     subprocess.call(["bash", "scan1.sh", args_string,scope_string])
+def remove_colons(string):
+    # Check if the input is a string
+    if not isinstance(string, str):
+        raise TypeError("Input must be a string")
+
+    try:
+        # Remove colons from the string
+        modified_string = string.replace(":", "")
+        return modified_string
+    except Exception:
+        return string
 
 def get_arg_for_tools(rules_text, tools_list):
 
     args = []
+    count=0
     for tool in tools_list:
+        count +=1
+        print(f'finding parms for {tool} {count} out of {len(tools_list)}')
         args.append(bardcode.get_answer(f'**Important: Based on the scope and rules:"{rules_text}", generate parameters for the **{tool}** tool.* The parameters should be in the following format: {tool}: (the parameters for the command) .* You can refer to the domains as `$domain`.* the output of the tools will be in $output_dir/{tool}.txt.* Always comply with the rules.* Do not explain anything.* Double-check that the command parameters follow the stated rules.')) 
         #args.append(bardcode.get_answer(f'important part plz remeber: based on scope ["{scope_text}"] and rules ["{rules_text}"] make parms for {tool} and make sure you answer only the parms in this format "{tool}: (the parms for the command)" instead of saying all the domains u can refer to it as $domains and dont include output parms,(really important!: always comply with the rules), without explaining anything,Dont Explain,and double check that the command parms follows the stated rules')) 
         time.sleep(10) 
@@ -69,8 +83,9 @@ if __name__ == "__main__":
     arg = get_arg_for_tools(rules_text,tools_list)
     
     for e in arg:
-        
-        conversation_log = [{'role': 'system', 'content':f'extract the bash command from "{e["content"]}" without the tool name and print it out without additional text '}]
+        print("extracting commands...")
+        content=remove_colons(e["content"])
+        conversation_log = [{'role': 'system', 'content':f'extract the bash command from "{content}" and print it out without additional text '}]
         conversation_log = chatgpt_conversation(conversation_log)
         finalcomms.append(conversation_log[-1]['content'])
         time.sleep(5)
