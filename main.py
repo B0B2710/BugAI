@@ -49,7 +49,7 @@ def run_scan1(args_as_list,scope_text):
     scope_string = ' '.join(scope_text)
     subprocess.call(["bash", "scan1.sh", args_string,scope_string])
 
-def get_arg_for_tools(scope_text, rules_text, tools_list):
+def get_arg_for_tools(rules_text, tools_list):
 
     args = []
     for tool in tools_list:
@@ -66,7 +66,7 @@ if __name__ == "__main__":
     scope_text = extract_identifiers(scope_csv_path)
     rules_text = read_file(rules_file_path)
     finalcomms=[]
-    arg = get_arg_for_tools(scope_text, rules_text,tools_list)
+    arg = get_arg_for_tools(rules_text,tools_list)
     
     for e in arg:
         
