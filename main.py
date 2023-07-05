@@ -11,7 +11,7 @@ import subprocess
 API_KEY = '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'  # Replace with your actual API key
 openai.api_key = API_KEY
 model_id = 'gpt-3.5-turbo'
-
+print("starting buging")
 def chatgpt_conversation(conversation_log):
     response = openai.ChatCompletion.create(
         model=model_id,
@@ -53,7 +53,7 @@ def get_arg_for_tools(rules_text, tools_list):
 
     args = []
     for tool in tools_list:
-        args.append(bardcode.get_answer(f'**Important: Based on the scope and rules:"{rules_text}", generate parameters for the **{tool}** tool.* The parameters should be in the following format: {tool}  (the parameters for the command) .* You can refer to the domains as `$domain`.* the output of the tools will be in $output_dir/{tool}.txt.* Always comply with the rules.* Do not explain anything.* Double-check that the command parameters follow the stated rules.')) 
+        args.append(bardcode.get_answer(f'**Important: Based on the scope and rules:"{rules_text}", generate parameters for the **{tool}** tool.* The parameters should be in the following format: {tool}: (the parameters for the command) .* You can refer to the domains as `$domain`.* the output of the tools will be in $output_dir/{tool}.txt.* Always comply with the rules.* Do not explain anything.* Double-check that the command parameters follow the stated rules.')) 
         #args.append(bardcode.get_answer(f'important part plz remeber: based on scope ["{scope_text}"] and rules ["{rules_text}"] make parms for {tool} and make sure you answer only the parms in this format "{tool}: (the parms for the command)" instead of saying all the domains u can refer to it as $domains and dont include output parms,(really important!: always comply with the rules), without explaining anything,Dont Explain,and double check that the command parms follows the stated rules')) 
         time.sleep(10) 
     return args
@@ -75,7 +75,7 @@ if __name__ == "__main__":
         finalcomms.append(conversation_log[-1]['content'])
         time.sleep(5)
     print(finalcomms)
-    print(scope_text)
+
     run_scan1(finalcomms,scope_text)
 
 
