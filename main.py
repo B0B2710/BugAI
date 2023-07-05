@@ -46,7 +46,7 @@ def get_arg_for_tools(scope_text, rules_text, tools_list):
 if __name__ == "__main__":
     scope_csv_path = "scope.csv"
     rules_file_path = "rules.txt"
-    tools_list = ["nmap", "masscan"]  # Replace with your list of tools
+    tools_list = ["nmap", "masscan","gobuster","feroxbuster","dirsearch","gospider","hakrawler"]  # Replace with your list of tools
 
     scope_text = extract_identifiers(scope_csv_path)
     rules_text = read_file(rules_file_path)

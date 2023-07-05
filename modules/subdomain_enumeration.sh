@@ -3,7 +3,7 @@
 scope_list=$2
 output_file="${1}"
 
-
+``
 
 for scope in "${scope_list[@]}"
 do

@@ -1,15 +1,9 @@
 #!/bin/bash
 
-if [ -z "$1" ]
-then
-    echo "Usage: ./content_discovery.sh <domain>"
-    exit 1
-fi
 
 domain=$1
 output_dir=$2
-scan_mod=$3
-scan_speed=$4
+
 
 # Create output directory
 outdir=$output_dir/content_discovery
