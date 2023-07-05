@@ -74,7 +74,8 @@ if __name__ == "__main__":
         conversation_log = chatgpt_conversation(conversation_log)
         finalcomms.append(conversation_log[-1]['content'])
         time.sleep(5)
-    print (finalcomms)
+    print(finalcomms)
+    print(scope_text)
     run_scan1(finalcomms,scope_text)
 
 
