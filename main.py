@@ -3,6 +3,7 @@ import pandas as pd
 import csv
 from bardapi import Bard
 import re
+import time
 #API_KEY = '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'  # Replace with your actual API key
 
 token = 'XwjlF04MT1t5eGHPdg7-YgaoekM_RD9JpccHjGXhDRJpQZTk4L41lJhI1VQZQFVK925JZA.'
@@ -40,13 +41,14 @@ def get_arg_for_tools(scope_text, rules_text, tools_list):
 
     args = []
     for tool in tools_list:
-        args.append(bardcode.get_answer(f'based on rules "{rules_text}" make parms for {tool} and output only the args," dont include output parms and the toolname in the command and give only one command for each tool that is as efficienive and id allowed by the rules very important'))  
+        args.append(bardcode.get_answer(f'important part plz remeber: based on scope ["{scope_text}"] and rules ["{rules_text}"] make parms for {tool} and make sure you answer only the parms in this format "{tool}: (the parms for the command)" instead of saying all the domains u can refer to it as $domains and dont include output parms,(really important!: always comply with the rules), without explaining anything,Dont Explain,and double check that the command follows the stated rules')) 
+        time.sleep(1) 
     return args
 
 if __name__ == "__main__":
     scope_csv_path = "scope.csv"
     rules_file_path = "rules.txt"
-    tools_list = ["nmap", "masscan"]  # Replace with your list of tools
+    tools_list = ["nmap", "masscan","gobuster","feroxbuster","dirsearch","gospider","hakrawler"]  # Replace with your list of tools
 
     scope_text = extract_identifiers(scope_csv_path)
     rules_text = read_file(rules_file_path)
@@ -56,6 +58,10 @@ if __name__ == "__main__":
     for e in arg:
         print("code:")
         print(e["code"])
+    print("           ")
+    print("           ")
+    print("           ")
+    print("           ")
     for e in arg:
         print("Text: /n")
         print(e["content"])
