@@ -31,5 +31,6 @@ pycares
 tornado
 aiodns
 asyncio
-panda
+pandas
 bardapi
+openai
