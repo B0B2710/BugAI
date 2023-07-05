@@ -54,13 +54,13 @@ def get_arg_for_tools(scope_text, rules_text, tools_list):
     for tool in tools_list:
         args.append(bardcode.get_answer(f'**Important: Based on the scope and rules:"{rules_text}", generate parameters for the **{tool}** tool.* The parameters should be in the following format: {tool}: (the parameters for the command) .* You can refer to the domains as `$domain`.* the output of the tools will be in $output_dir/{tool}.txt.* Always comply with the rules.* Do not explain anything.* Double-check that the command parameters follow the stated rules.')) 
         #args.append(bardcode.get_answer(f'important part plz remeber: based on scope ["{scope_text}"] and rules ["{rules_text}"] make parms for {tool} and make sure you answer only the parms in this format "{tool}: (the parms for the command)" instead of saying all the domains u can refer to it as $domains and dont include output parms,(really important!: always comply with the rules), without explaining anything,Dont Explain,and double check that the command parms follows the stated rules')) 
-        time.sleep(3) 
+        time.sleep(10) 
     return args
 
 if __name__ == "__main__":
     scope_csv_path = "scope.csv"
     rules_file_path = "rules.txt"
-    tools_list = ["nmap","gobuster","feroxbuster","dirsearch","gospider","hakrawler"]  # Replace with your list of tools
+    tools_list = ["nmap","gobuster","feroxbuster"]  # Replace with your list of tools
 
     scope_text = extract_identifiers(scope_csv_path)
     rules_text = read_file(rules_file_path)
@@ -69,7 +69,7 @@ if __name__ == "__main__":
     
     for e in arg:
         
-        conversation_log = [{'role': 'system', 'content':e["content"]}]
+        conversation_log = [{'role': 'system', 'content':f'extract the bash command from "{e["content"]}" without the tool name and print it out without additional text '}]
         conversation_log = chatgpt_conversation(conversation_log)
         finalcomms.append(conversation_log[-1]['content'])
     print (finalcomms)
