@@ -44,9 +44,10 @@ def read_file(filename):
 
 
 #args list format [nmap -a -b -c -bbc ,masscan -a -b -c -bbc]
-def run_scan1(args_as_list):
+def run_scan1(args_as_list,scope_text):
     args_string = ' '.join(args_as_list)
-    subprocess.call(["bash", "scan1.sh", args_string])
+    scope_string = ' '.join(scope_text)
+    subprocess.call(["bash", "scan1.sh", args_string,scope_string])
 
 def get_arg_for_tools(scope_text, rules_text, tools_list):
 
@@ -73,7 +74,7 @@ if __name__ == "__main__":
         conversation_log = chatgpt_conversation(conversation_log)
         finalcomms.append(conversation_log[-1]['content'])
     print (finalcomms)
-    run_scan1(finalcomms)
+    run_scan1(finalcomms,scope_text)
 
 
     #print(arg['content'])
