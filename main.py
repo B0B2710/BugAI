@@ -40,8 +40,8 @@ def get_arg_for_tools(scope_text, rules_text, tools_list):
 
     args = []
     for tool in tools_list:
-        arg = bardcode.get_answer(f'based on rules "{rules_text}" make parms for {tool} and answer in this format "(the parms for the command)," dont include output parms and give only one command for each tool that is as efficienive as allowed by the rules')
-    return arg
+        args.append(bardcode.get_answer(f'based on rules "{rules_text}" make parms for {tool} and output only the args," dont include output parms and the toolname in the command and give only one command for each tool that is as efficienive and id allowed by the rules very important'))  
+    return args
 
 if __name__ == "__main__":
     scope_csv_path = "scope.csv"
@@ -53,8 +53,13 @@ if __name__ == "__main__":
 
     arg = get_arg_for_tools(scope_text, rules_text,tools_list)
     #text = "Sure, here are the parameters for the commands you mentioned, using the scope and rules you provided:**Nmap**Use code with caution. Learn more nmap -sT -p- $domainsnmap -sV -p- $domains nmap -sS -p- $domains nmap --script whois-domain $domains nmap --script smb-enum-domains $domains Code snippet **Masscan** Use code with caution. Learn more masscan -p0-65535 -iL $domains Code snippet **Gobuster** Use code with caution. Learn more gobuster -w /usr/share/wordlists/common.txt -u $domains -t 30 Please note that these are just a few examples of parameters that you can use. You may need to adjust them depending on the specific hosts and services you are scanning. You should also carefully read the rules and policiesof the program you are participating in before running any scans.Here are some additional tips for using these commands:Use the -sT option for a TCP connect scan, which is the most reliable way to scan for open ports.Use the -sV option to perform version detection, which can help you identify the specific software running on a host.Use the -sS option for a SYN scan, which is a less reliable way to scan for open ports but is less likely to be blocked by firewalls.Use the whois-domain script to enumerate domains associated with a host.Use the smb-enum-domains script to enumerate domains associated with a host that is running Microsoft Windows.Use the -w option to specify a wordlist of common usernames and passwords.Use the -u option to specify the URL of the host you want to scan.Use the -t option to specify the number of concurrent threads to use.I hope this helps!"
-    print(arg['code'])
-    print(arg['content'])
+    for e in arg:
+        print("code:")
+        print(e["code"])
+    for e in arg:
+        print("Text: /n")
+        print(e["content"])
+    #print(arg['content'])
 
 
 
