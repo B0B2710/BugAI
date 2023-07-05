@@ -66,7 +66,7 @@ if __name__ == "__main__":
     rules_text = read_file(rules_file_path)
     finalcomms=[]
     arg = get_arg_for_tools(scope_text, rules_text,tools_list)
-    conversation_log = [{'role': 'system', 'content':e["content"]}]
+    
     for e in arg:
         
         conversation_log = [{'role': 'system', 'content':e["content"]}]
