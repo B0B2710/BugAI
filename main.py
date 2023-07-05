@@ -4,7 +4,23 @@ import csv
 from bardapi import Bard
 import re
 import time
-#API_KEY = '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'  # Replace with your actual API key
+import openai
+import pandas as pd
+import subprocess
+API_KEY = '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'  # Replace with your actual API key
+openai.api_key = API_KEY
+model_id = 'gpt-3.5-turbo'
+
+def chatgpt_conversation(conversation_log):
+    response = openai.ChatCompletion.create(
+        model=model_id,
+        messages=conversation_log
+    )
+    conversation_log.append({
+        'role': response.choices[0].message['role'], 
+        'content': response.choices[0].message['content'].strip()
+    })
+    return conversation_log
 
 token = 'XwjlF04MT1t5eGHPdg7-YgaoekM_RD9JpccHjGXhDRJpQZTk4L41lJhI1VQZQFVK925JZA.'
 bardcode = Bard(token=token)
@@ -24,18 +40,12 @@ def read_file(filename):
         return file.read()
 
 
-def extract_command(text, tool_name):
-    """Extracts the command for the given tool name and arguments from the given text."""
-    pattern = r"{} (.+?)(?=$|\snmap|\smasscan|\sgobuster)".format(tool_name)
-    matches = re.findall(pattern, text, re.DOTALL)
-    return [match.strip() for match in matches]
-
 
 
 #args list format [nmap -a -b -c -bbc ,masscan -a -b -c -bbc]
-#*def run_scan1(args_as_list):
-#    args_string = ' '.join(args_as_list)
-#    subprocess.call(["bash", "scan1.sh", args_string])
+def run_scan1(args_as_list):
+    args_string = ' '.join(args_as_list)
+    subprocess.call(["bash", "scan1.sh", args_string])
 
 def get_arg_for_tools(scope_text, rules_text, tools_list):
 
@@ -53,19 +63,17 @@ if __name__ == "__main__":
 
     scope_text = extract_identifiers(scope_csv_path)
     rules_text = read_file(rules_file_path)
-
+    finalcomms=[]
     arg = get_arg_for_tools(scope_text, rules_text,tools_list)
-    #text = "Sure, here are the parameters for the commands you mentioned, using the scope and rules you provided:**Nmap**Use code with caution. Learn more nmap -sT -p- $domainsnmap -sV -p- $domains nmap -sS -p- $domains nmap --script whois-domain $domains nmap --script smb-enum-domains $domains Code snippet **Masscan** Use code with caution. Learn more masscan -p0-65535 -iL $domains Code snippet **Gobuster** Use code with caution. Learn more gobuster -w /usr/share/wordlists/common.txt -u $domains -t 30 Please note that these are just a few examples of parameters that you can use. You may need to adjust them depending on the specific hosts and services you are scanning. You should also carefully read the rules and policiesof the program you are participating in before running any scans.Here are some additional tips for using these commands:Use the -sT option for a TCP connect scan, which is the most reliable way to scan for open ports.Use the -sV option to perform version detection, which can help you identify the specific software running on a host.Use the -sS option for a SYN scan, which is a less reliable way to scan for open ports but is less likely to be blocked by firewalls.Use the whois-domain script to enumerate domains associated with a host.Use the smb-enum-domains script to enumerate domains associated with a host that is running Microsoft Windows.Use the -w option to specify a wordlist of common usernames and passwords.Use the -u option to specify the URL of the host you want to scan.Use the -t option to specify the number of concurrent threads to use.I hope this helps!"
+    conversation_log = [{'role': 'system', 'content':e["content"]}]
     for e in arg:
-        print("code:")
-        print(e["code"])
-    print("           ")
-    print("           ")
-    print("           ")
-    print("           ")
-    for e in arg:
-        print("Text: /n")
-        print(e["content"])
+        
+        conversation_log = [{'role': 'system', 'content':e["content"]}]
+        conversation_log = chatgpt_conversation(conversation_log)
+        finalcomms.append(conversation_log[-1]['content'])
+    print (finalcomms)
+
+
     #print(arg['content'])
 
 
