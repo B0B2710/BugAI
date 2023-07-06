@@ -45,8 +45,10 @@ def read_file(filename):
 
 #args list format [nmap -a -b -c -bbc ,masscan -a -b -c -bbc]
 def run_scan1(args_as_list,scope_text):
-    args_string = ' '.join(args_as_list)
+    args_string = '^'.join(args_as_list)
     scope_string = ' '.join(scope_text)
+    print(scope_string)
+    subprocess.run("find . -type f -print0 | xargs -0 dos2unix", shell=True)
     subprocess.call(["bash", "scan1.sh", args_string,scope_string])
 def remove_colons(string):
     # Check if the input is a string
@@ -61,7 +63,7 @@ def remove_colons(string):
         return string
 
 def get_parms_for_tool(rules_text, tool):
-    con =bardcode.get_answer(f'**Important: Based on the scope and rules:"{rules_text}", generate parameters for the **{tool}** tool.* The parameters should be in the following format: {tool}: (the parameters for the command) .* You can refer to the domains as `$domain`.* the output of the tools will be in $output_dir/{tool}.txt.* Always comply with the rules.* Do not explain anything.* Double-check that the command parameters follow the stated rules.')
+    con =bardcode.get_answer(f'**Important: Based on the scope and rules:"{rules_text}", generate parameters for the **{tool}** tool.* The parameters should be in the following format: {tool}: (the parameters for the command) .* You can refer to the domains as `"$domain"`.* the output of the tools will be in `"$output_dir/{tool}.txt"`.* Always comply with the rules.* Do not explain anything.* Double-check that the command parameters follow the stated rules.')
     conversation_log = [{'role': 'system', 'content':f'extract the bash command from "{con["content"]}" and print it out without additional text if You cant print it out just say "None" '}]
     print("extracting commands...")
     print("")
@@ -101,13 +103,14 @@ if __name__ == "__main__":
 
     scope_text = extract_identifiers(scope_csv_path)
     rules_text = read_file(rules_file_path)
-    finalcomms=[]
-    args = get_arg_for_tools(rules_text,tools_list)
     
-
-    #run_scan1(args,scope_text)
+    #args = get_arg_for_tools(rules_text,tools_list)
+    args= ['nmap -sV -Pn -T4 -o $output_dir/nmap.txt $domain', 'gobuster -u "$domain" -w /usr/share/wordlists/dirbuster/common.txt -t 30 -o $output_dir/gobuster.txt', 'feroxbuster -u "$domain" -w /usr/share/wordlists/dirbuster/common.txt -t 30 -o $output_dir/feroxbuster.txt', 'dirsearch -u "$domain" -e -t 30 -o $output_dir/dirsearch.txt', 'gospider -u "$domain" -o $output_dir/gospider.txt -c 30 -t 30', 'hakrawler -u "$domain" -o $output_dir/hakrawler.txt -c 30 -t 30 -r']
 
     print(args)
+    run_scan1(args,scope_text)
+
+   
     #print(arg['content'])
 
 

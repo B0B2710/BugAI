@@ -142,7 +142,7 @@ sudo apt install naabu
 sudo apt install nikto
 sudo apt install wapiti
 sudo apt install joomscan
-
+apt install feroxbuster
 
 echo "Installing FDsploit..."
 git clone https://github.com/chrispetrou/FDsploit.git /opt/FDsploit
@@ -231,11 +231,6 @@ fi
 echo "Installing Gopherus..."
 git clone https://github.com/tarunkant/Gopherus.git && cd Gopherus && chmod +x gopherus.py && sudo ln -sf "$(pwd)/gopherus.py" /usr/local/bin/gopherus
 
-
-if ! command -v feroxbuster &> /dev/null;then
-  echo "Installing feroxbuster..."
-  curl -sL https://raw.githubusercontent.com/epi052/feroxbuster/main/install-nix.sh | bash -s $HOME/.local/bin
-fi
 
 # Metasploit Framework
 # Burp Suite

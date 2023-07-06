@@ -1,22 +1,35 @@
 #!/bin/bash
 
 # Set default values
-output_dir_path="$HOME/Desktop/output"
+output_dir="$HOME/Desktop/output"
+if [ ! -d "$output_dir" ]; then
+    # Create the directory if it doesn't exist
+    mkdir -p "$output_dir"
+fi
 proxy_file=""
+
+IFS='^'
 
 args_string=$1
 scope_string=$2
 scope=($scope_string)
-args_list=($args_string)
-
+#args_list=($args_string)
+read -ra args_list <<< "$args_string"
 #port scaning
-nmap_args=${args_list[1]}
+nmap_args=${args_list[0]}
 #content_discovery
-gobuster_args=${args_list[2]}
-feroxbuster_args=${args_list[3]}
-dirsearch_args=${args_list[4]}
-gospider_args=${args_list[5]}
-hakrawler_args=${args_list[6]}
+gobuster_args=${args_list[1]}
+feroxbuster_args=${args_list[2]}
+dirsearch_args=${args_list[3]}
+gospider_args=${args_list[4]}
+hakrawler_args=${args_list[5]}
+
+echo "$nmap_args"
+echo "$gobuster_args"
+echo "$feroxbuster_args"
+echo "$dirsearch_args"
+echo "$gospider_args"
+echo "$hakrawler_args"
 
 
 
