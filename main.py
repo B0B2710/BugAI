@@ -67,7 +67,12 @@ def get_arg_for_tools(rules_text, tools_list):
     for tool in tools_list:
         count +=1
         print(f'finding parms for {tool} {count} out of {len(tools_list)}')
-        args.append(bardcode.get_answer(f'**Important: Based on the scope and rules:"{rules_text}", generate parameters for the **{tool}** tool.* The parameters should be in the following format: {tool}: (the parameters for the command) .* You can refer to the domains as `$domain`.* the output of the tools will be in $output_dir/{tool}.txt.* Always comply with the rules.* Do not explain anything.* Double-check that the command parameters follow the stated rules.')) 
+        con =bardcode.get_answer(f'**Important: Based on the scope and rules:"{rules_text}", generate parameters for the **{tool}** tool.* The parameters should be in the following format: {tool}: (the parameters for the command) .* You can refer to the domains as `$domain`.* the output of the tools will be in $output_dir/{tool}.txt.* Always comply with the rules.* Do not explain anything.* Double-check that the command parameters follow the stated rules.')
+        conversation_log = [{'role': 'system', 'content':f'extract the bash command from "{con["content"]}" and print it out without additional text if You cant print it out just say "None" '}]
+        print("extracting commands...")
+        conversation_log = chatgpt_conversation(conversation_log)
+        content=remove_colons(conversation_log[-1]['content'])
+        args.append(content)
         #args.append(bardcode.get_answer(f'important part plz remeber: based on scope ["{scope_text}"] and rules ["{rules_text}"] make parms for {tool} and make sure you answer only the parms in this format "{tool}: (the parms for the command)" instead of saying all the domains u can refer to it as $domains and dont include output parms,(really important!: always comply with the rules), without explaining anything,Dont Explain,and double check that the command parms follows the stated rules')) 
         time.sleep(10) 
     return args
@@ -80,21 +85,21 @@ if __name__ == "__main__":
     scope_text = extract_identifiers(scope_csv_path)
     rules_text = read_file(rules_file_path)
     finalcomms=[]
-    arg = get_arg_for_tools(rules_text,tools_list)
+    args = get_arg_for_tools(rules_text,tools_list)
     
-    for e in arg:
-        print("extracting commands...")
-        
-        conversation_log = [{'role': 'system', 'content':f'extract the bash command from "{e["content"]}" and print it out without additional text '}]
-        conversation_log = chatgpt_conversation(conversation_log)
-        content=remove_colons(conversation_log[-1]['content'])
-        finalcomms.append(content)
-        time.sleep(5)
-    print(finalcomms)
+    #for e in arg:
+    #    print("extracting commands...")
+    #    
+    #    conversation_log = [{'role': 'system', 'content':f'extract the bash command from "{e["content"]}" and print it out without additional text '}]
+    #    conversation_log = chatgpt_conversation(conversation_log)
+    #    content=remove_colons(conversation_log[-1]['content'])
+    #    finalcomms.append(content)
+    #    time.sleep(5)
+    #print(finalcomms)
 
-    run_scan1(finalcomms,scope_text)
+    #run_scan1(finalcomms,scope_text)
 
-
+    print(args)
     #print(arg['content'])
 
 
