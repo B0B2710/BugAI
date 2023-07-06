@@ -47,7 +47,11 @@ if [ ! -o "$output_dir" ]; then
   mkdir -p "$output_dir"
 fi
 
-
+# Check if domain is set
+if [[ -z "${domain}" ]]; then
+    echo "Usage: $0 [-d domain] [-o output_dir] [-P proxy file] [-t threads] [-h all commands] "
+    exit 1
+fi
 
 # Create output directory if it doesn't exist
 mkdir -p "${output_dir}"
