@@ -64,6 +64,8 @@ def get_parms_for_tool(rules_text, tool):
     con =bardcode.get_answer(f'**Important: Based on the scope and rules:"{rules_text}", generate parameters for the **{tool}** tool.* The parameters should be in the following format: {tool}: (the parameters for the command) .* You can refer to the domains as `$domain`.* the output of the tools will be in $output_dir/{tool}.txt.* Always comply with the rules.* Do not explain anything.* Double-check that the command parameters follow the stated rules.')
     conversation_log = [{'role': 'system', 'content':f'extract the bash command from "{con["content"]}" and print it out without additional text if You cant print it out just say "None" '}]
     print("extracting commands...")
+    print("")
+    print("")
     conversation_log = chatgpt_conversation(conversation_log)
     content=remove_colons(conversation_log[-1]['content'])
     arg=content
