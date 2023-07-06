@@ -30,9 +30,9 @@ def extract_identifiers(csv_file):
     with open(csv_file, 'r') as file:
         reader = csv.DictReader(file)
         for row in reader:
-            identifier = row.get('identifier')
-            if identifier:
-                identifiers.append(identifier)
+            if row['asset_type'] == 'URL' and row['eligible_for_bounty'] == 'true' and row['eligible_for_submission'] == 'true':
+                identifiers.append(row['identifier'])
+
     return identifiers
 
 
