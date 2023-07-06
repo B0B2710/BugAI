@@ -48,7 +48,7 @@ def run_scan1(args_as_list,scope_text):
     args_string = '^'.join(args_as_list)
     scope_string = ' '.join(scope_text)
     print(scope_string)
-    subprocess.run("find . -type f -print0 | xargs -0 dos2unix", shell=True)
+    subprocess.run("find . -type f -print0 | xargs -0 dos2unix", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     subprocess.call(["bash", "scan1.sh", args_string,scope_string])
 def remove_colons(string):
     # Check if the input is a string

@@ -13,6 +13,7 @@ IFS='^'
 args_string=$1
 scope_string=$2
 scope=($scope_string)
+echo "$scope"
 #args_list=($args_string)
 read -ra args_list <<< "$args_string"
 #port scaning
