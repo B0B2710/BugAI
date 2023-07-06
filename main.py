@@ -84,10 +84,11 @@ if __name__ == "__main__":
     
     for e in arg:
         print("extracting commands...")
-        content=remove_colons(e["content"])
-        conversation_log = [{'role': 'system', 'content':f'extract the bash command from "{content}" and print it out without additional text '}]
+        
+        conversation_log = [{'role': 'system', 'content':f'extract the bash command from "{e["content"]}" and print it out without additional text '}]
         conversation_log = chatgpt_conversation(conversation_log)
-        finalcomms.append(conversation_log[-1]['content'])
+        content=remove_colons(conversation_log[-1]['content'])
+        finalcomms.append(content)
         time.sleep(5)
     print(finalcomms)
 
