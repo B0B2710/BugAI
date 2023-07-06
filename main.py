@@ -65,7 +65,6 @@ def get_parms_for_tool(rules_text, tool):
     conversation_log = [{'role': 'system', 'content':f'extract the bash command from "{con["content"]}" and print it out without additional text if You cant print it out just say "None" '}]
     print("extracting commands...")
     print("")
-    print("")
     conversation_log = chatgpt_conversation(conversation_log)
     content=remove_colons(conversation_log[-1]['content'])
     arg=content
@@ -81,7 +80,6 @@ def get_arg_for_tools(rules_text, tools_list):
         count +=1
         print(f'finding parms for {tool} {count} out of {len(tools_list)}')
         print("")
-        print("")
         content=get_parms_for_tool(rules_text,tool)
         tries=1
         max_tries=5
@@ -91,10 +89,9 @@ def get_arg_for_tools(rules_text, tools_list):
             tries+=1
         print(f'found parms')
         print("")
-        print("")
         args.append(content)
         #args.append(bardcode.get_answer(f'important part plz remeber: based on scope ["{scope_text}"] and rules ["{rules_text}"] make parms for {tool} and make sure you answer only the parms in this format "{tool}: (the parms for the command)" instead of saying all the domains u can refer to it as $domains and dont include output parms,(really important!: always comply with the rules), without explaining anything,Dont Explain,and double check that the command parms follows the stated rules')) 
-        time.sleep(10) 
+        time.sleep(5) 
     return args
 
 if __name__ == "__main__":
@@ -108,7 +105,7 @@ if __name__ == "__main__":
     args = get_arg_for_tools(rules_text,tools_list)
     
 
-    run_scan1(args,scope_text)
+    #run_scan1(args,scope_text)
 
     print(args)
     #print(arg['content'])
