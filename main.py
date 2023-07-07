@@ -46,7 +46,7 @@ def read_file(filename):
 #args list format [nmap -a -b -c -bbc ,masscan -a -b -c -bbc]
 def run_scan1(args_as_list,scope_text):
     args_string = '^'.join(args_as_list)
-    scope_string = ' '.join(scope_text)
+    scope_string = '^'.join(scope_text)
     print(scope_string)
     subprocess.run("find . -type f -print0 | xargs -0 dos2unix", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     subprocess.call(["bash", "scan1.sh", args_string,scope_string])

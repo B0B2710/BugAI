@@ -1,7 +1,8 @@
 #!/bin/bash
 
 
-scope_list=$1
+scope_string=$1
+IFS='^' read -ra scope_list <<< "$scope_string"
 output_dir=$2
 gobuster_args=$3
 feroxbuster_args=$4
