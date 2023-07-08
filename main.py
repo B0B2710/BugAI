@@ -63,8 +63,8 @@ def remove_colons(string):
         return string
 
 def get_parms_for_tool(rules_text, tool):
-    con =bardcode.get_answer(f'**Important: Based on the scope and rules:"{rules_text}", generate parameters for the **{tool}** tool.* The parameters should be in the following format: {tool}: (the parameters for the command) .* You can refer to the target as `"$domain"` *the target must always be inculded in the command* .* the output of the tools will be to a folder on the Desktop named output and the name of the file is tool_name.txt, the double quotes are importent.the only wordlists that are allowed to use are thoses that 100% installed with the tools used.* Always comply with the rules.* Do not explain anything.* Double-check that the command parameters follow the stated rules.')
-    conversation_log = [{'role': 'system', 'content':f'extract the bash command from "{con["content"]}" and print it out without additional text if You cant print it out just say "None" '}]
+    con =bardcode.get_answer(f'Important: Generate parameters for the {tool} tool based on the scope and rules "{rules_text}".The parameters should be in the following format:{tool}: (the parameters for the command).You can refer to the target as "$domain".The target must always be included in the command.The output of the tools will be saved to a folder on the Desktop named "output" and the name of the file will be "tool_name.txt". The double quotes are important.Only wordlists that are 100% installed with the tools used are allowed to be used.Always comply with the rules.Do not explain anything.Double-check that the command parameters follow the stated rules.')
+    conversation_log = [{'role': 'system', 'content':f'Extract the bash command from \"{con["content"]}\" and print it out without additional text. If you encounter any bugs, please try to fix them and proceed with the extraction. If no command is found, please return \"None\".'}]
     print("extracting commands...")
     print("")
     conversation_log = chatgpt_conversation(conversation_log)
