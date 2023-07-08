@@ -1,2 +1,1 @@
-Error: unknown command "\"$domain\"" for "gobuster"
-Run 'gobuster --help' for usage.
+Error: unknown shorthand flag: 'd' in -d
