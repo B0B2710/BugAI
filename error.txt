@@ -1,0 +1,2 @@
+Error: unknown command "\"$domain\"" for "gobuster"
+Run 'gobuster --help' for usage.
