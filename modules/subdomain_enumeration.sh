@@ -18,8 +18,8 @@ for scope in "${scope_list[@]}"; do
     echo "Running assetfinder on $scope"
     assetfinder --subs-only "$scope" >> "$output_file"
 
-    echo "Running Amass on $scope"
-    amass enum -silent -d "$scope" >> "$output_file"
+    #echo "Running Amass on $scope"
+    #amass enum -silent -d "$scope" >> "$output_file"
 
 
 done
