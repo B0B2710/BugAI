@@ -108,7 +108,7 @@ if __name__ == "__main__":
     #args= ['nmap -T4 -p- -o "$output_dir/nmap.txt" "$domain"', 'gobuster -w "$wordlist" -t 30 -u "$domain" -o "$output_dir/gobuster.txt"', 'feroxbuster -w "$wordlist" -t 30 -u "$domain" -o "$output_dir/feroxbuster.txt"', 'dirsearch -w "$wordlist" -t 30 -u "$domain" -o "$output_dir/dirsearch.txt"', 'gospider -t 30 -u "$domain" -o "$output_dir/gospider.txt" -f "$wordlist"', 'hakrawler -d 2 -t 30 -u "$domain" -o "$output_dir/hakrawler.txt" -w "$wordlist"']
 
     print(args)
-    #run_scan1(args,scope_text)
+    run_scan1(args,scope_text)
 
    
     #print(arg['content'])
