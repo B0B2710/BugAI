@@ -106,7 +106,7 @@ if __name__ == "__main__":
     
     #args = get_arg_for_tools(rules_text,tools_list)
     args= ['nmap -sV -Pn -T4 -o $output_dir/nmap.txt $domain', 'gobuster -u "$domain" -w /usr/share/wordlists/dirbuster/common.txt -t 30 -o $output_dir/gobuster.txt', 'feroxbuster -u "$domain" -w /usr/share/wordlists/dirbuster/common.txt -t 30 -o $output_dir/feroxbuster.txt', 'dirsearch -u "$domain" -e -t 30 -o $output_dir/dirsearch.txt', 'gospider -u "$domain" -o $output_dir/gospider.txt -c 30 -t 30', 'hakrawler -u "$domain" -o $output_dir/hakrawler.txt -c 30 -t 30 -r']
-
+    print(scope_text)
     print(args)
     run_scan1(args,scope_text)
 
