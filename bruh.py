@@ -8,10 +8,29 @@ import time
 import openai
 import pandas as pd
 import subprocess
+import sys
+
+tool_buged=sys.argv[1]
+tool_index=int(sys.argv[2])
+module_path=sys.argv[3]
+args_string=sys.argv[4]
+output_dir=sys.argv[5]
+error_file_to_pass=sys.argv[6]
+
+#get the error content
+error_file= open("error.txt", "r")
+error_content = error_file.read()
+error_file.close()
+#get the original list of args
+delimiter = "^"
+args = args_string.split(delimiter)
+broken_command=args[tool_index]
+
+
 API_KEY = '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'  # Replace with your actual API key
 openai.api_key = API_KEY
 model_id = 'gpt-3.5-turbo'
-print("starting buging")
+print("fixing command")
 def chatgpt_conversation(conversation_log):
     response = openai.ChatCompletion.create(
         model=model_id,
@@ -44,12 +63,12 @@ def read_file(filename):
 
 
 #args list format [nmap -a -b -c -bbc ,masscan -a -b -c -bbc]
-def run_scan1(args_as_list,scope_text):
+def run_scan_again(args_as_list,scope_text):
     args_string = '^'.join(args_as_list)
     scope_string = '^'.join(scope_text)
-    print(scope_string)
-    subprocess.run("find . -type f -print0 | xargs -0 dos2unix", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.call(["bash", "scan1.sh", args_string,scope_string])
+    subprocess.call(["bash",module_path,output_dir,args_string,error_file_to_pass,scope_string])
+
+
 def remove_colons(string):
     # Check if the input is a string
     if not isinstance(string, str):
@@ -63,7 +82,7 @@ def remove_colons(string):
         return string
 
 def get_parms_for_tool(rules_text, tool):
-    con =bardcode.get_answer(f'**Important: Based on the scope and rules:"{rules_text}", generate parameters for the **{tool}** tool.* The parameters should be in the following format: {tool}: (the parameters for the command) .* You can refer to the domains as `"$domain"`.* the output of the tools will be to a folder on the Desktop named output and the name of the file is tool_name.txt, the double quotes are importent.the only wordlists that are allowed to use are thoses that 100% installed with the tools used.* Always comply with the rules.* Do not explain anything.* Double-check that the command parameters follow the stated rules.')
+    con =bardcode.get_answer(f'**Important: Based on the scope and rules:"{rules_text}", generate parameters for the **{tool}** tool.* The parameters should be in the following format: {tool}: (the parameters for the command) .* You can refer to the domains as `"$domain"`.* the output of the tools will be to a folder on the Desktop named output and the name of the file is tool_name.txt ,the only wordlists that are allowed to use are thoses that 100% installed with the tools used, previous command generated {broken_command} , the error : {error_content} .* Always comply with the rules.* Do not explain anything.* Double-check that the command parameters follow the stated rules.')
     conversation_log = [{'role': 'system', 'content':f'extract the bash command from "{con["content"]}" and print it out without additional text if You cant print it out just say "None" '}]
     print("extracting commands...")
     print("")
@@ -71,44 +90,37 @@ def get_parms_for_tool(rules_text, tool):
     content=remove_colons(conversation_log[-1]['content'])
     arg=content
     #args.append(bardcode.get_answer(f'important part plz remeber: based on scope ["{scope_text}"] and rules ["{rules_text}"] make parms for {tool} and make sure you answer only the parms in this format "{tool}: (the parms for the command)" instead of saying all the domains u can refer to it as $domains and dont include output parms,(really important!: always comply with the rules), without explaining anything,Dont Explain,and double check that the command parms follows the stated rules')) 
-    time.sleep(10)
     return arg
 
-def get_arg_for_tools(rules_text, tools_list):
+def get_arg_for_tools(rules_text,tool):
 
-    args = []
-    count=0
-    for tool in tools_list:
-        count +=1
-        print(f'finding parms for {tool} {count} out of {len(tools_list)}')
-        print("")
+    
+    #print(f'finding parms for {tool} {count} out of {len(tools_list)}')
+    print(f'fixing args for the tool {tool}')
+    print("")
+    content=get_parms_for_tool(rules_text,tool)
+    tries=1
+    max_tries=5
+    while content == "None" and tries <= max_tries:
+        print(f'failed to find parms retring attempt number {tries}')
         content=get_parms_for_tool(rules_text,tool)
-        tries=1
-        max_tries=5
-        while content == "None" and tries <= max_tries:
-            print(f'failed to find parms retring attempt number {tries}')
-            content=get_parms_for_tool(rules_text,tool)
-            tries+=1
-        print(f'found parms')
-        print("")
-        args.append(content)
-        #args.append(bardcode.get_answer(f'important part plz remeber: based on scope ["{scope_text}"] and rules ["{rules_text}"] make parms for {tool} and make sure you answer only the parms in this format "{tool}: (the parms for the command)" instead of saying all the domains u can refer to it as $domains and dont include output parms,(really important!: always comply with the rules), without explaining anything,Dont Explain,and double check that the command parms follows the stated rules')) 
-        time.sleep(5) 
-    return args
+        tries+=1
+    print(f'found parms')
+    print("")
+    args[tool_index]=content
+    #args.append(bardcode.get_answer(f'important part plz remeber: based on scope ["{scope_text}"] and rules ["{rules_text}"] make parms for {tool} and make sure you answer only the parms in this format "{tool}: (the parms for the command)" instead of saying all the domains u can refer to it as $domains and dont include output parms,(really important!: always comply with the rules), without explaining anything,Dont Explain,and double check that the command parms follows the stated rules')) 
+    
 
 if __name__ == "__main__":
     scope_csv_path = "scope.csv"
     rules_file_path = "rules.txt"
-    tools_list = ["nmap","gobuster","feroxbuster","dirsearch","gospider","hakrawler"]  # Replace with your list of tools
 
     scope_text = extract_identifiers(scope_csv_path)
     rules_text = read_file(rules_file_path)
     
-    #args = get_arg_for_tools(rules_text,tools_list)
-    args= ['nmap -T4 -p- -o "$output_dir/nmap.txt" "$domain"', 'gobuster -w "$wordlist" -t 30 -u "$domain" -o "$output_dir/gobuster.txt"', 'feroxbuster -w "$wordlist" -t 30 -u "$domain" -o "$output_dir/feroxbuster.txt"', 'dirsearch -w "$wordlist" -t 30 -u "$domain" -o "$output_dir/dirsearch.txt"', 'gospider -t 30 -u "$domain" -o "$output_dir/gospider.txt" -f "$wordlist"', 'hakrawler -d 2 -t 30 -u "$domain" -o "$output_dir/hakrawler.txt" -w "$wordlist"']
-
+    get_arg_for_tools(rules_text,tool_buged) 
     print(args)
-    run_scan1(args,scope_text)
+    run_scan_again(args,scope_text)
 
    
     #print(arg['content'])
