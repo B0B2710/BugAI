@@ -1,1 +1,1 @@
-Error: unknown shorthand flag: 'd' in -d
+Error: unknown shorthand flag: 'u' in -u
