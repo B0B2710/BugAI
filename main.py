@@ -8,6 +8,16 @@ import time
 import openai
 import pandas as pd
 import subprocess
+from Perplexity import Perplexity
+
+
+perplexity = Perplexity()
+
+
+def prepai():
+    answer_json = perplexity.search("What is the meaning of life?")
+    answer =answer.json_answer_text["answer"]  
+
 API_KEY = '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'  # Replace with your actual API key
 openai.api_key = API_KEY
 model_id = 'gpt-3.5-turbo'
