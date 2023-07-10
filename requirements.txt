@@ -34,3 +34,5 @@ asyncio
 pandas
 bardapi
 openai
+websocket-client==0.37.0 
+json
