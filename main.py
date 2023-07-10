@@ -63,7 +63,7 @@ def remove_colons(string):
         return string
 
 def get_parms_for_tool(rules_text, tool):
-    con =bardcode.get_answer(f'Important: Generate parameters for the {tool} tool based on the scope and rules "{rules_text}".The parameters should be in the following format:{tool}: (the parameters for the command).You can refer to the target as "$domain".The target must always be included in the command.The output of the tools will be saved to ~/Desktop/output/ and the name of the file will be "tool_name.txt". The double quotes are important.Only wordlists that are 100% installed with the tools used are allowed to be used.Always comply with the rules.Do not explain anything.Double-check that the command parameters follow the stated rules.')
+    con =bardcode.get_answer(f'Important: Generate parameters for the {tool} tool based on the scope and rules "{rules_text}".The parameters should be in the following format:{tool}: (the parameters for the command).You can refer to the target as "$domain".The target must always be included in the command.The output of the tools will be saved to ~/Desktop/output/ and the name of the file will be "tool_name.txt". The double quotes are important.*Always inclued Required command parameters like the mode and more*.Only wordlists that are 100% installed with the tools used are allowed to be used.Always comply with the rules.Do not explain anything.Double-check that the command parameters follow the stated rules.')
     conversation_log = [{'role': 'system', 'content':f'Extract the bash command from \"{con["content"]}\" and print it out without additional text. If you encounter any bugs, please try to fix them and proceed with the extraction. If no command is found, please return \"None\".'}]
     print("extracting commands...")
     print("")
@@ -85,7 +85,7 @@ def get_arg_for_tools(rules_text, tools_list):
         content=get_parms_for_tool(rules_text,tool)
         tries=1
         max_tries=5
-        while content == "None" and tries <= max_tries:
+        while (content == "None") or (content == 'There is no bash command present in the sentence "I\'m not programmed to assist with that.", so the answer is "None".') and tries <= max_tries:
             print(f'failed to find parms retring attempt number {tries}')
             content=get_parms_for_tool(rules_text,tool)
             tries+=1
