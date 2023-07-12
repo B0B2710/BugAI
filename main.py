@@ -8,23 +8,6 @@ import time
 import openai
 import pandas as pd
 import subprocess
-from Perplexity import Perplexity
-
-
-perplexity = Perplexity()
-
-
-def prepai(rules_text, tool):
-    answer_json = perplexity.search(f'Important: Generate parameters for the {tool} tool based on the scope and rules "{rules_text}".The parameters should be in the following format:{tool}: (the parameters for the command).You can refer to the target as "$domain".The target must always be included in the command.The output of the tools will be saved to ~/Desktop/output/ and the name of the file will be "tool_name.txt". The double quotes are important.*Always inclued Required command parameters like the mode and more*.Only wordlists that are 100% installed with the tools used are allowed to be used.Always comply with the rules.Do not explain anything.Double-check that the command parameters follow the stated rules.')
-    con =answer_json.json_answer_text["answer"]
-    conversation_log = [{'role': 'system', 'content':f'Extract the bash command from \"{con["content"]}\" and print it out without additional text. If you encounter any bugs, please try to fix them and proceed with the extraction. If no command is found, please return \"None\".'}]
-    print("extracting commands...")
-    print("")
-    conversation_log = chatgpt_conversation(conversation_log)
-    content=remove_colons(conversation_log[-1]['content'])
-    answer=content
-    print(answer)
-    return answer
 
 API_KEY = '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'  # Replace with your actual API key
 openai.api_key = API_KEY
@@ -80,8 +63,8 @@ def remove_colons(string):
     except Exception:
         return string
 
-def get_parms_for_tool(rules_text, tool):
-    con =bardcode.get_answer(f'Important: Generate parameters for the {tool} tool based on the scope and rules "{rules_text}".The parameters should be in the following format:{tool}: (the parameters for the command).You can refer to the target as "$domain".The target must always be included in the command.The output of the tools will be saved to ~/Desktop/output/ and the name of the file will be "tool_name.txt". The double quotes are important.Only wordlists that are 100% installed with the tools used are allowed to be used.Always comply with the rules.Do not explain anything.Double-check that the command parameters follow the stated rules.')
+def get_parms_for_tool(rules_text, tool,Pre_command):
+    con =bardcode.get_answer(f'Important: Generate parameters for the {tool} tool based on the scope and rules "{rules_text}".The parameters should be in the following format:{tool}: (the parameters for the command).You can refer to the target as "$domain".The target must always be included in the command.The output of the tools will be saved to ~/Desktop/output/ and the name of the file will be "tool_name.txt". The double quotes are important.*Always inclued Required command parameters like the mode and more*.Only wordlists that are 100% installed with the tools used are allowed to be used.Always comply with the rules.Do not explain anything.Double-check that the command parameters follow the stated rules.')
     conversation_log = [{'role': 'system', 'content':f'Extract the bash command from \"{con["content"]}\" and print it out without additional text. If you encounter any bugs, please try to fix them and proceed with the extraction. If no command is found, please return \"None\".'}]
     print("extracting commands...")
     print("")
@@ -127,7 +110,7 @@ if __name__ == "__main__":
     #args= ['nmap -T4 -p- -o "$output_dir/nmap.txt" "$domain"', 'gobuster -w "$wordlist" -t 30 -u "$domain" -o "$output_dir/gobuster.txt"', 'feroxbuster -w "$wordlist" -t 30 -u "$domain" -o "$output_dir/feroxbuster.txt"', 'dirsearch -w "$wordlist" -t 30 -u "$domain" -o "$output_dir/dirsearch.txt"', 'gospider -t 30 -u "$domain" -o "$output_dir/gospider.txt" -f "$wordlist"', 'hakrawler -d 2 -t 30 -u "$domain" -o "$output_dir/hakrawler.txt" -w "$wordlist"']
 
     print(args)
-    #run_scan1(args,scope_text)
+    run_scan1(args,scope_text)
 
    
     #print(arg['content'])
