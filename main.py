@@ -129,7 +129,6 @@ if __name__ == "__main__":
     scope_csv_path = "scope.csv"
     rules_file_path = "rules.txt"
     tools_list = ["nmap"
-                  ,"feroxbuster"
                   ,"dirsearch"
                   ,"gospider"
                   #,"hakrawler"
