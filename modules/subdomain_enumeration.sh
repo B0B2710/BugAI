@@ -26,7 +26,7 @@ done
 
 
 echo "removing duplicate lines"
-sort subdomains.txt | uniq > subdomains_unique_temp.txt
+sort "$output_file" | uniq > subdomains_unique_temp.txt
 mv subdomains_unique_temp.txt "$output_file"
 echo " subdomain_enurmeration done"
 
