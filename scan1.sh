@@ -26,10 +26,9 @@ IFS='^' read -ra args_list <<< "$args_string"
 nmap_args=${args_list[0]}
 #content_discovery
 #gobuster_args=${args_list[1]}
-feroxbuster_args=${args_list[1]}
-dirsearch_args=${args_list[2]}
-gospider_args=${args_list[3]}
-#hakrawler_args=${args_list[4]}
+dirsearch_args=${args_list[1]}
+gospider_args=${args_list[2]}
+
 
 echo "$nmap_args"
 #echo "$gobuster_args"
