@@ -25,12 +25,6 @@ for scope in "${scope_list[@]}"; do
 done
 
 
-
-echo "Running massdns on all subdomains"
-massdns -r "$resolver_file" -o subdomains_massdns.txt
-
-awk '{print $3}' subdomains_massdns.txt > domains_ip.txt
-
 echo "removing duplicate lines"
 sort subdomains.txt | uniq > subdomains_unique_temp.txt
 mv subdomains_unique_temp.txt subdomains.txt
