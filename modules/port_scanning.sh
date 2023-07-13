@@ -45,7 +45,7 @@ check_error() {
 
 while IFS= read -r domain; do
     echo "[*] Running Nmap on ${domain}"
-    $nmap_args 2> "error.txt"
+    sudo $nmap_args 2> "error.txt"
     check_error $? "nmap" "$output_dir/nmap.txt" "0"
 done < "$subdomains_file"
 
