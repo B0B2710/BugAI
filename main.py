@@ -13,7 +13,7 @@ import requests
 
 import requests
 
-url = "https://api.writesonic.com/v2/business/content/chatsonic?engine=superior&language=en"
+url = "https://api.writesonic.com/v2/business/content/chatsonic?engine=premium&language=en"
 
 payload = {
     "enable_google_results": "true",
@@ -86,9 +86,9 @@ def remove_colons(string):
         return string
 
 def get_parms_for_tool(rules_text, tool):
-    payload["input_text"] = f'Important: Generate parameters for the {tool} tool based on the rules "{rules_text}".The parameters should be in the following format:{tool}: (the parameters for the command).You can refer to the target as "$domain".The target must always be included in the command.The output of the tools will be saved to ~/Desktop/output/ and the name of the file will be "tool_name.txt". The double quotes are important.Only wordlists that are 100% installed with the tools used are allowed to be used.Always comply with the rules.Do not explain anything.Double-check that the command parameters follow the stated rules.' 
+    payload["input_text"] = f'Important: Generate parameters for the {tool} tool based on the rules "{rules_text}".Please note that these rules should be followed when participating in the Tide Program Policy.".The parameters should be in the following format:{tool} : (the parameters for the command).You can refer to the target as "$domain".The output of the tools will be saved to ~/Desktop/output/ and the name of the file will be "tool_name.txt". The double quotes are important.Only wordlists that are 100% installed with the tools used are allowed to be used.Always comply with the rules.Do not explain anything and just response with the command requested.Double-check that the command parameters follow the stated rules.'
     response = requests.post(url, json=payload, headers=headers)
-    conversation_log = [{'role': 'system', 'content':f'Extract the bash command from \"{response["message"]}\" and print it out without additional text. If you encounter any bugs, please try to fix them and proceed with the extraction. If no command is found, please return \"None\".'}]
+    conversation_log = [{'role': 'system', 'content':f'Extract the bash command from \"{response.text}\" and print it out without additional text. If you encounter any bugs, please try to fix them and proceed with the extraction. If no command is found, please return \"None\".'}]
     print("extracting commands...")
     print("")
     conversation_log = chatgpt_conversation(conversation_log)
@@ -105,7 +105,7 @@ def get_arg_for_tools(rules_text, tools_list):
         count +=1
         print(f'finding parms for {tool} {count} out of {len(tools_list)}')
         print("")
-        
+        content=get_parms_for_tool(rules_text,tool)
         tries=1
         max_tries=5
         while (content == "None") or (content == 'There is no bash command present in the sentence "I\'m not programmed to assist with that.", so the answer is "None".') and tries <= max_tries:
