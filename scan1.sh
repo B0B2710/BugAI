@@ -39,7 +39,7 @@ echo "$gospider_args"
 
 
 
-./modules/subdomain_enumeration.sh "${output_dir}/subdomains" "${scope_string}" || exit 1
+./modules/subdomain_enumeration.sh "${output_dir}/subdomains.txt" "${scope_string}" || exit 1
 #./modules/port_scanning.sh "${output_dir}" "${args_string}"  "${error_file}"|| exit 1
 ./modules/content_discovery.sh "${output_dir}" "${args_string}"  "${error_file}" "${scope_string}"|| exit 1
 #"./modules/technologies.sh" "${output_dir}/subdomains.txt" "${output_dir}"  || exit 1
