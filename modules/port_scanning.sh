@@ -46,6 +46,7 @@ check_error() {
 }
 
 while IFS= read -r domain; do
+
     if curl --head --silent --fail $domain 2> /dev/null;
         then
         echo "[*] Running Nmap on ${domain}"
