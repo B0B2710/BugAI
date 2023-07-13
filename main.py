@@ -13,7 +13,7 @@ import requests
 
 import requests
 
-url = "https://api.writesonic.com/v2/business/content/chatsonic?engine=premium&language=en"
+url = "https://api.writesonic.com/v2/business/content/chatsonic?engine=superior&language=en"
 
 payload = {
     "enable_google_results": "true",
@@ -23,7 +23,7 @@ payload = {
 headers = {
     "accept": "application/json",
     "content-type": "application/json",
-    "X-API-KEY": "api key"
+    "X-API-KEY": "f77f9b79-e198-4dd6-b82f-4bec83709888"
 }
 
 
