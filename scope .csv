@@ -1,0 +1,26 @@
+identifier,asset_type,instruction,eligible_for_bounty,eligible_for_submission,availability_requirement,confidentiality_requirement,integrity_requirement,max_severity,system_tags,created_at,updated_at
+www.tide.co,URL,"",true,true,low,low,low,medium,Wordpress,2021-03-15 18:14:23 UTC,2022-12-23 10:44:06 UTC
+web.tide.co,URL,"",true,true,,,,critical,"JavaScript, AngularJS",2021-03-15 18:14:42 UTC,2022-12-23 10:29:50 UTC
+api.tide.co,URL,"",true,true,,,,critical,"Spring Boot, Amazon DynamoDB, AmazonRDS, Amazon Web Services, Flask, Java, Python",2021-03-15 18:14:57 UTC,2022-12-23 10:42:54 UTC
+account-reader.tide.co,URL,"",false,false,,,,critical,,2021-03-15 18:15:08 UTC,2021-04-08 09:52:37 UTC
+login.tide.co,URL,"",true,true,high,high,high,critical,,2021-03-15 18:15:20 UTC,2021-04-08 09:52:37 UTC
+app.tide.co,URL,"",true,true,,,,critical,,2021-03-15 18:16:15 UTC,2021-04-08 09:52:37 UTC
+co.tide,APPLE_STORE_APP_ID,"",true,true,,,,critical,Dart,2021-03-15 18:16:29 UTC,2022-12-23 10:32:32 UTC
+com.tideplatform.banking,GOOGLE_PLAY_APP_ID,"",true,true,,,,critical,Dart,2021-03-15 18:16:51 UTC,2022-12-23 10:32:09 UTC
+community.tide.co,URL,"",false,false,,,,critical,,2021-03-15 18:17:05 UTC,2021-04-08 09:52:37 UTC
+status.tide.co,URL,"",false,false,,,,critical,,2021-03-15 18:17:24 UTC,2021-04-08 09:52:37 UTC
+admin.tide.co,URL,"",false,false,,,,critical,,2021-03-15 18:17:34 UTC,2021-04-08 09:52:37 UTC
+http://*-wip.tide.co,WILDCARD,"",false,false,,,,critical,,2021-03-15 18:17:50 UTC,2021-04-08 09:52:37 UTC
+http://*-staging.tide.co,WILDCARD,"",false,false,,,,critical,,2021-03-15 18:18:01 UTC,2021-04-08 09:52:37 UTC
+http://*.wip.tide.co,WILDCARD,"",false,false,,,,critical,,2021-03-15 18:18:13 UTC,2021-04-08 09:52:37 UTC
+http://*.staging.tide.co,WILDCARD,"",false,false,,,,critical,,2021-03-15 18:18:36 UTC,2021-04-08 09:52:37 UTC
+www.tidecharity.org.uk,URL,"",false,false,,,,critical,,2021-03-15 18:31:27 UTC,2021-04-08 09:52:37 UTC
+portaldesign.tide.co,URL,"",false,false,,,,critical,,2022-03-28 10:57:59 UTC,2022-03-28 10:57:59 UTC
+domains.tide.co,URL,"",false,false,,,,critical,,2022-03-28 11:03:21 UTC,2022-03-28 11:03:21 UTC
+memberconnect.tide.co,URL,"",false,false,,,,critical,,2022-07-13 07:18:06 UTC,2022-07-13 07:18:06 UTC
+professionals.tide.co,URL,"",false,false,,,,critical,,2022-07-13 07:19:48 UTC,2022-07-13 07:19:48 UTC
+co.tide.tideplatform.in,GOOGLE_PLAY_APP_ID,"",true,true,high,high,high,critical,Dart,2022-12-09 16:08:39 UTC,2022-12-09 16:08:39 UTC
+api.tideplatform.in,URL,"",true,true,high,high,high,critical,"Amazon Web Services, Amazon DynamoDB, Java, Python, Spring Boot, Flask, AmazonRDS",2022-12-09 16:11:10 UTC,2022-12-23 10:34:27 UTC
+http://*.stg-tideplatform.in,WILDCARD,"",false,false,,,,critical,,2022-12-12 07:44:40 UTC,2022-12-12 07:49:08 UTC
+http://*.wip-tideplatform.in,WILDCARD,"",false,false,,,,critical,,2022-12-12 07:45:48 UTC,2022-12-12 07:48:02 UTC
+mi.tide.co,URL,"",false,false,,,,critical,,2023-03-30 10:10:56 UTC,2023-03-30 10:10:56 UTC
