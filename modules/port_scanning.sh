@@ -10,7 +10,9 @@ ip=""
 subdomains_file="${output_dir}/subdomains.txt"
 ip_addresses=""
 nmap_args=${args_list[0]}
-
+script_dir=$(dirname "$(readlink -f "$0")")
+script_name=$(basename "$0")
+full_path="$script_dir/$script_name"
 
 
 get_subdomain_ips() {
