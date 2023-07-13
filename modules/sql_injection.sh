@@ -35,3 +35,6 @@ while IFS= read -r domain; do
     sqliscanner -u "$domain" -o "$output_path/sqliscanner.txt"
 done < "$subdomains_file"
 echo "[*] SQL injection scanning completed!"
+
+
+
