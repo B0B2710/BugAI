@@ -27,7 +27,7 @@ done
 
 
 echo "Running massdns on all subdomains"
-massdns -r "$resolver_file" -t A -o S subdomains_massdns.txt
+massdns -r "$resolver_file" -o subdomains_massdns.txt
 
 awk '{print $3}' subdomains_massdns.txt > domains_ip.txt
 
