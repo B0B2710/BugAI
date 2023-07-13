@@ -11,8 +11,6 @@ IFS='^' read -ra args_list <<< "$args_string"
 IFS='^' read -ra scope_list <<< "$scope_string"
 
 
-#gobuster_args=${args_list[1]}
-#feroxbuster_args=${args_list[1]}
 dirsearch_args=${args_list[1]}
 gospider_args=${args_list[2]}
 hakrawler_args=${args_list[3]}
