@@ -16,7 +16,7 @@ import requests
 url = "https://api.writesonic.com/v2/business/content/chatsonic?engine=premium&language=en"
 
 payload = {
-    "enable_google_results": "true",
+    "enable_google_results": "false",
     "enable_memory": False,
     "input_text": ""
 }
