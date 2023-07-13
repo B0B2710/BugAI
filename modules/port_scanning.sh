@@ -46,16 +46,17 @@ check_error() {
 }
 
 while IFS= read -r domain; do
-
-    if curl --head --silent --fail $domain 2> /dev/null;
-        then
-        echo "[*] Running Nmap on ${domain}"
-        sudo $nmap_args 2> "error.txt"
-        check_error $? "nmap" "$output_dir/nmap.txt" "0"
+    if curl --head --silent --fail "$domain" 2> /dev/null; then
+        if [[ "$(curl -s -o /dev/null -w "%{http_code}" "$domain")" != "302" ]]; then
+            echo "[*] Running Nmap on ${domain}"
+            sudo nmap $nmap_args "$domain" 2> "error.txt"
+            check_error $? "nmap" "$output_dir/nmap.txt" "0"
         else
+            echo "[*] Skipping ${domain}: HTTP 302 response"
+        fi
+    else
         echo "This ${domain} does not exist."
     fi
-    
 done < "$subdomains_file"
 
 
