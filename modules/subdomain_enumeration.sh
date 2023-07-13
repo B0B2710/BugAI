@@ -26,14 +26,14 @@ done
 
 
 
-echo "Running massdns on all subdomains"
-massdns -r "$resolver_file" -t A -o S subdomains_massdns.txt
+#echo "Running massdns on all subdomains"
+#massdns -r "$resolver_file" -t A -o S subdomains_massdns.txt
 
-awk '{print $3}' subdomains_massdns.txt > domains_ip.txt
+#awk '{print $3}' subdomains_massdns.txt > domains_ip.txt
 
 echo "removing duplicate lines"
 sort subdomains.txt | uniq > subdomains_unique_temp.txt
-mv subdomains_unique_temp.txt subdomains.txt
+mv subdomains_unique_temp.txt "$output_file"
 echo " subdomain_enurmeration done"
 
 
