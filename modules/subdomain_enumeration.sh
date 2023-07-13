@@ -5,7 +5,7 @@ output_file="${1}"
 resolver_file="lists/resolvers.txt"
 echo $scope_string
 IFS='^' read -ra scope_list <<< "$scope_string"
-
+touch "$output_file"
 for scope in "${scope_list[@]}"; do
 
     if [[ $scope == www.* ]]; then
@@ -17,7 +17,7 @@ for scope in "${scope_list[@]}"; do
         subfinder -d "$scope" -silent >> "$output_file"
         
     else
-        echo "The string contains an asterisk (*) so BUG"
+        echo "$list" >> "$output_file"
     fi
 done
 
