@@ -59,7 +59,7 @@ mkdir -p "${output_dir}"
 # Run modules
 #Recon:
 "./modules/subdomain_enumeration.sh" "${domain}" "${output_dir}/subdomains.txt" || exit 1
-"./modules/port_scanning.sh" "${output_dir}/subdomains.txt" "${output_dir}/portscan.txt" "${scan_mod}" "${scan_speed}"|| exit 1
+#"./modules/port_scanning.sh" "${output_dir}/subdomains.txt" "${output_dir}/portscan.txt" "${scan_mod}" "${scan_speed}"|| exit 1
 "./modules/content_discovery" "${domain}" "${output_dir}" "${scan_mod}" "${scan_speed}" || exit 1
 "./modules/technologies.sh" "${output_dir}/subdomains.txt" "${output_dir}"  || exit 1
 "./modules/links.sh" "${domain}" "${output_dir}"  || exit 1
