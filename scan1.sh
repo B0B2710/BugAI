@@ -45,3 +45,5 @@ echo "$gospider_args"
 ./modules/content_discovery.sh "${output_dir}" "${args_string}"  "${error_file}" "${scope_string}"|| exit 1
 #"./modules/technologies.sh" "${output_dir}/subdomains.txt" "${output_dir}"  || exit 1
 #"./modules/links.sh" "${domain}" "${output_dir}"  || exit 1
+
+echo "all done"

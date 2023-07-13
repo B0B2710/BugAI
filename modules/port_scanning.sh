@@ -7,7 +7,7 @@ args_string=$2
 error_file=$3
 IFS='^' read -ra args_list <<< "$args_string"
 ip=""
-subdomains="${output_dir}/subdomains.txt"
+subdomains_file="${output_dir}/subdomains.txt"
 ip_addresses=""
 nmap_args=${args_list[0]}
 
