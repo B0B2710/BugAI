@@ -1,0 +1,46 @@
+Important: Generate parameters for the gobuster tool based on the scope ['www.tide.co', 'web.tide.co', 'api.tide.co', 'login.tide.co', 'app.tide.co', 'api.tideplatform.in'] and rules "1. Respect the Rules, Public Disclosure Policy, and Code of Conduct of HackerOne. Comply with all applicable laws.
+
+
+Do not compromise customers' security, finances, privacy, or data, or interrupt or degrade the service.
+
+
+Provide detailed reports with reproducible steps. Insufficiently detailed reports will not be eligible for a reward.
+
+
+Submit one vulnerability per report, unless you need to chain vulnerabilities for impact.
+
+
+In the case of duplicate reports, only the first report received (provided it can be fully reproduced) will be awarded.
+
+
+Multiple vulnerabilities caused by one underlying issue will be awarded one reward.
+
+
+Social engineering is prohibited.
+
+
+Testing of vulnerabilities allowing code execution is limited to executing hostname, whoami, or reading the /etc/passwd file.
+
+
+Testing of vulnerabilities allowing injection of attacker-controlled parts of an SQL query is limited to executing SELECT queries such as @@version, user(); or system_user();
+10.Testing of vulnerabilities allowing file uploads is limited to uploading a file containing your HackerOne username.
+
+
+Limit automated scanning to 30 requests per second. Aggressive testing causing service degradation may result in removal from the program.
+12 .You acquire no rights (ownership or otherwise) to any discovered information. The information remains the property of Tide or its third-party partners, suppliers, or customers.
+13 .Tide has the right to use your Report for improving and maintaining the security of their services and data.
+
+
+Tide may modify the Program Policy, suspend, or terminate the Program at any time.
+
+
+Provide contact information or personal details if requested by Tide or HackerOne.
+
+
+Do not test for spam, social engineering, or denial of service issues.
+
+
+No testing accounts or credentials will be provided.
+
+
+Please note that these rules should be followed when participating in the Tide Program Policy.".The parameters should be in the following format:gobuster : (the parameters for the command).You can refer to the target as "$domain".The output of the tools will be saved to ~/Desktop/output/ and the name of the file will be "tool_name.txt". The double quotes are important.Only wordlists that are 100% installed with the tools used are allowed to be used.Always comply with the rules.Do not explain anything and just response with the command requested.Double-check that the command parameters follow the stated rules.
