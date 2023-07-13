@@ -62,10 +62,10 @@ do
     $gospider_args 2> "error.txt"
     check_error $? "gospider" "$output_dir/gospider.txt" "4"
     # Hakrawler
-    echo "[*] Running Hakrawler on ${domain}"
+    #echo "[*] Running Hakrawler on ${domain}"
     #hakrawler -url $domain -depth 2 -plain -insecure -outfile $outdir/hakrawler.txt
-    $hakrawler_args 2> "error.txt"
-    check_error $? "hakrawler" "$output_dir/hakrawler.txt" "5"
+    #$hakrawler_args 2> "error.txt"
+    #check_error $? "hakrawler" "$output_dir/hakrawler.txt" "5"
 done
 
 
