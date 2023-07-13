@@ -30,13 +30,29 @@ get_subdomain_ips() {
 }
 
 
-get_subdomain_ips
+check_error() {
+    exit_status=$1
+    tool_name=$2
+    output_file=$3
+    tool_index_in_py=$4
+    
+    if [ $exit_status -ne 0 ]; then
+        echo "Error: $tool_name encountered an error. Exit status: $exit_status"
+        python3 bruh.py "$tool_name" "$tool_index_in_py" "$full_path" "$args_string" "$output_dir" "$error_file"
+        exit
+    fi
+}
 
-
-for domain in "${ip_addresses[@]}"; do
+while IFS= read -r domain; do
     echo "[*] Running Nmap on ${domain}"
     $nmap_args 2> "error.txt"
-done
+    check_error $? "nmap" "$output_dir/nmap.txt" "0"
+done < "$subdomains_file"
+
+
+
+
+
 
 #nmap
 #nmap -sS -p- -sV -T4 -iL $outdir/masscan.txt -oA $outdir/nmap
