@@ -11,11 +11,11 @@ IFS='^' read -ra args_list <<< "$args_string"
 IFS='^' read -ra scope_list <<< "$scope_string"
 
 
-gobuster_args=${args_list[1]}
-feroxbuster_args=${args_list[2]}
-dirsearch_args=${args_list[3]}
-gospider_args=${args_list[4]}
-hakrawler_args=${args_list[5]}
+#gobuster_args=${args_list[1]}
+feroxbuster_args=${args_list[1]}
+dirsearch_args=${args_list[2]}
+gospider_args=${args_list[3]}
+hakrawler_args=${args_list[4]}
 
 
 
@@ -36,15 +36,15 @@ check_error() {
 
 for domain in "${scope_list[@]}"
 do
-    if [[ $domain == www.* ]]; then
+    #if [[ $domain == www.* ]]; then
         # Remove the "www." prefix and update the scope variable
-        domain="${domain#www.}"
-    fi
-    #gobuster
-    echo "[*] Running gobuster on ${domain}"
+    #    domain="${domain#www.}"
+    #fi
+    ##gobuster
+    #echo "[*] Running gobuster on ${domain}"
     #gobuster dir -q -u $domain -w /usr/share/wordlists/dirb/common.txt -o $outdir/gobuster.txt -k
-    $gobuster_args 2> "error.txt"
-    check_error $? "gobuster" "$output_dir/gobuster.txt" "1"
+    #$gobuster_args 2> "error.txt"
+    #check_error $? "gobuster" "$output_dir/gobuster.txt" "1"
 
     # Feroxbuster
     echo "[*] Running Feroxbuster on ${domain}"

@@ -25,14 +25,14 @@ IFS='^' read -ra args_list <<< "$args_string"
 #port scaning
 nmap_args=${args_list[0]}
 #content_discovery
-gobuster_args=${args_list[1]}
-feroxbuster_args=${args_list[2]}
-dirsearch_args=${args_list[3]}
-gospider_args=${args_list[4]}
-hakrawler_args=${args_list[5]}
+#gobuster_args=${args_list[1]}
+feroxbuster_args=${args_list[1]}
+dirsearch_args=${args_list[2]}
+gospider_args=${args_list[3]}
+hakrawler_args=${args_list[4]}
 
 echo "$nmap_args"
-echo "$gobuster_args"
+#echo "$gobuster_args"
 echo "$feroxbuster_args"
 echo "$dirsearch_args"
 echo "$gospider_args"
