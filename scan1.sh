@@ -29,19 +29,19 @@ nmap_args=${args_list[0]}
 feroxbuster_args=${args_list[1]}
 dirsearch_args=${args_list[2]}
 gospider_args=${args_list[3]}
-hakrawler_args=${args_list[4]}
+#hakrawler_args=${args_list[4]}
 
 echo "$nmap_args"
 #echo "$gobuster_args"
 echo "$feroxbuster_args"
 echo "$dirsearch_args"
 echo "$gospider_args"
-echo "$hakrawler_args"
+#echo "$hakrawler_args"
 
 
 
 #./modules/subdomain_enumeration.sh "${output_dir}/subdomains.txt" "${scope_string}" || exit 1
-#./modules/port_scanning.sh "${output_dir}" "${args_string}"  "${error_file}"|| exit 1
+./modules/port_scanning.sh "${output_dir}" "${args_string}"  "${error_file}"|| exit 1
 ./modules/content_discovery.sh "${output_dir}" "${args_string}"  "${error_file}" "${scope_string}"|| exit 1
 #"./modules/technologies.sh" "${output_dir}/subdomains.txt" "${output_dir}"  || exit 1
 #"./modules/links.sh" "${domain}" "${output_dir}"  || exit 1
