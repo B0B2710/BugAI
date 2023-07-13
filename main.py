@@ -138,9 +138,8 @@ if __name__ == "__main__":
     scope_text = extract_identifiers(scope_csv_path)
     rules_text = read_file(rules_file_path)
     
-    args = get_arg_for_tools(rules_text,tools_list)
-    #args= ['nmap -T4 -p- -o "$output_dir/nmap.txt" "$domain"', 'gobuster -w "$wordlist" -t 30 -u "$domain" -o "$output_dir/gobuster.txt"', 'feroxbuster -w "$wordlist" -t 30 -u "$domain" -o "$output_dir/feroxbuster.txt"', 'dirsearch -w "$wordlist" -t 30 -u "$domain" -o "$output_dir/dirsearch.txt"', 'gospider -t 30 -u "$domain" -o "$output_dir/gospider.txt" -f "$wordlist"', 'hakrawler -d 2 -t 30 -u "$domain" -o "$output_dir/hakrawler.txt" -w "$wordlist"']
-
+    #args = get_arg_for_tools(rules_text,tools_list)
+    args = ['nmap -T5 -A -sS -p- -oN ~/Desktop/output/nmap.txt $domain --script=vuln', 'feroxbuster -u $domain -w /path/to/wordlist -H "X-Hackerone bobus2710" -t 30 -k -o ~/Desktop/output/feroxbuster.txt', 'dirsearch -u "https//$domain/" -e html,php,asp,aspx,jsp -w /path/to/wordlist.txt --force-extensions -F -t 30 -b -r -R -x 400,404 -H "X-Hackerone bobus2710" -o ~/Desktop/output/dirsearch.txt', 'gospider -s \"$domain\" -o ~/Desktop/output/\"gospider.txt\" -a \"X-Hackerone bobus2710\" -H \"X-Hackerone bobus2710\" -r -t 5 -d 3 -u https//\"$domain\" -c 30 -k -v -w']
     print(args)
     run_scan1(args,scope_text)
 
