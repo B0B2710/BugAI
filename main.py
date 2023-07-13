@@ -77,13 +77,45 @@ def remove_colons(string):
     # Check if the input is a string
     if not isinstance(string, str):
         raise TypeError("Input must be a string")
+    
 
     try:
         # Remove colons from the string
         modified_string = string.replace(":", "")
-        return modified_string
+
+        try:
+            # Remove https from the string
+            new_string = modified_string.replace("https//$domain/", "\"$domain\"")
+            return new_string
+        
+        except Exception:
+           
+            try:
+                 #if can't find https add "" to $domain
+                new_string = modified_string.replace("$domain", "\"$domain\"") 
+                return new_string
+            except Exception:
+                #if $domain not exists return default
+                return modified_string
+    
     except Exception:
-        return string
+        try:
+            #if $domain has "" goes back
+            new_string = string.replace("\"$domain\"", "\"{$domain}\"")
+            return new_string
+        except Exception:
+            
+            try:
+                #if $domain doesn't have "" adds them
+                new_string = string.replace("$domain", "\"$domain\"") 
+                return new_string
+            except Exception:
+                #if $domain not exists return default
+                return string
+           
+
+        
+    
 
 def get_parms_for_tool(rules_text, tool):
     payload["input_text"] = f'Important: Generate parameters for the {tool} tool based on the scope and rules "{rules_text}".The parameters should be in the following format:{tool}: (the parameters for the command).You can refer to the target as $domain.The target must always be included in the command.add sudo before the command if needed.dont add proxy.The output of the tools will be saved to ~/Desktop/output/ and the name of the file will be "tool_name". The double quotes are important.Only wordlists that are 100% installed with the tools used are allowed to be used.Include the custom HTTP header: X-Hackerone: bobus2710 with every requests that you send to Tide.responed with the requested command only with no explanation.Always comply with the rules.Do not explain anything.Double-check that the command parameters follow the stated rules.' 
@@ -94,6 +126,7 @@ def get_parms_for_tool(rules_text, tool):
     print("")
     conversation_log = chatgpt_conversation(conversation_log)
     content=remove_colons(conversation_log[-1]['content'])
+    print(content)
     arg=content
     time.sleep(10)
     return arg  
