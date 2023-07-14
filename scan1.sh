@@ -32,7 +32,7 @@ gospider_args=${args_list[2]}
 
 echo "$nmap_args"
 #echo "$gobuster_args"
-echo "$feroxbuster_args"
+#echo "$feroxbuster_args"
 echo "$dirsearch_args"
 echo "$gospider_args"
 #echo "$hakrawler_args"

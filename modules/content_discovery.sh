@@ -11,7 +11,6 @@ IFS='^' read -ra args_list <<< "$args_string"
 IFS='^' read -ra scope_list <<< "$scope_string"
 
 
-#gobuster_args=${args_list[1]}
 dirsearch_args=${args_list[1]}
 gospider_args=${args_list[2]}
 hakrawler_args=${args_list[3]}
@@ -33,8 +32,8 @@ check_error() {
     fi
 }
 
-for domain in "${scope_list[@]}"
-do
+subdomains_file="${output_dir}/subdomains.txt"
+while IFS= read -r domain; do
     #if [[ $domain == www.* ]]; then
         # Remove the "www." prefix and update the scope variable
     #    domain="${domain#www.}"
@@ -48,7 +47,7 @@ do
     # Dirsearch
     echo "[*] Running Dirsearch on ${domain}"
     #dirsearch -u $domain -e php,asp,aspx,jsp,html,zip,jar,txt,log -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -o $outdir/dirsearch.txt -t 50 -r -f
-    $dirsearch_args 2> "error.txt"
+    "$dirsearch_args" 2> "error.txt"
     check_error $? "dirsearch" "$output_dir/dirsearch.txt" "1"
     # Gospider
     echo "[*] Running Gospider on ${domain}"
@@ -60,8 +59,7 @@ do
     #hakrawler -url $domain -depth 2 -plain -insecure -outfile $outdir/hakrawler.txt
     #$hakrawler_args 2> "error.txt"
     #check_error $? "hakrawler" "$output_dir/hakrawler.txt" "5"
-done
-
+done < "$subdomains_file"
 
 
 

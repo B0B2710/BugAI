@@ -62,8 +62,6 @@ done < "$subdomains_file"
 
 
 
-
-
 #nmap
 #nmap -sS -p- -sV -T4 -iL $outdir/masscan.txt -oA $outdir/nmap
 nmapScanHandler() {
