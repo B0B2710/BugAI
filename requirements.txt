@@ -39,3 +39,4 @@ json
 threading
 uuid
 time
+scrapy
