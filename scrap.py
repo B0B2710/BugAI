@@ -1,8 +1,16 @@
-import requests
+import json
 
-url = 'https://api.tide.co'
-myobj = {'api': '1'}
+# Read the JSON file
+with open('db.json', 'r') as file:
+    db = json.load(file)
 
-x = requests.post(url, json = myobj)
 
-print(x.text)
+#update data 
+db['xss'] = 'true'
+
+
+
+
+# Write the updated data back to the JSON file
+with open('db.json', 'w') as file:
+    json.dump(db, file)
