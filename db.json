@@ -1,10 +1,10 @@
 {
     "urls": [
       {
-        "url": "https://www.example.com",
+        "url": "https://www.tide.co",
         "api":false,
         "wordpress": false,
-        "technologies": ["placeholder7", "placeholder8"],
+        "technologies": [],
         "xss": false,
         "sql_injection": false,
         "csrf": false,
