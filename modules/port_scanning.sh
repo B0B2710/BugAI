@@ -49,7 +49,7 @@ while IFS= read -r domain; do
     if curl --head --silent --fail "$domain" >/dev/null; then
         #if [[ "$(curl -s -o /dev/null -w "%{http_code}" "$domain")" != "302" || "$(curl -s -o /dev/null -w "%{http_code}" "$domain")" != "301" ]]; then
         echo "[*] Running Nmap on ${domain}"
-        sudo nmap $nmap_args "$domain" 2> "error.txt"
+        sudo $nmap_args  2> "error.txt"
         check_error $? "nmap" "$output_dir/nmap.txt" "0"
         #else
             #echo "[*] Skipping ${domain}: HTTP 302 response"
