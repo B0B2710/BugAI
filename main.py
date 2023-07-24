@@ -20,12 +20,16 @@ payload = {
     "enable_memory": False,
     "input_text": ""
 }
-headers = {
-    "accept": "application/json",
-    "content-type": "application/json",
-    "X-API-KEY": "f77f9b79-e198-4dd6-b82f-4bec83709888"
-}
 
+headers = {
+    # 'Accept-Encoding': 'gzip, deflate',
+    'Connection': 'keep-alive',
+    # Already added when you pass json=
+    # 'Content-Type': 'application/json',
+    'User-Agent': 'python-requests/2.28.1',
+    'accept': 'application/json',
+    'token': '787bce2b-1c6e-4c24-b665-1d7274c73826',
+}
 
 
 
@@ -118,8 +122,13 @@ def remove_colons(string):
     
 
 def get_parms_for_tool(rules_text, tool):
+    
     payload["input_text"] = f'Important: Generate parameters for the {tool} tool based on the scope and rules "{rules_text}".The parameters should be in the following format:{tool}: (the parameters for the command).You can refer to the target as $domain.The target must always be included in the command.add sudo before the command if needed.dont add proxy.The output of the tools will be saved to ~/Desktop/output/ and the name of the file will be "tool_name".Only wordlists that allowed is  /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt .*responed with the requested command only with no explanation*.Always comply with the rules.Do not explain anything.Double-check that the command parameters follow the stated rules.' 
-    response = requests.post(url, json=payload, headers=headers)
+    json_data = {
+    'question': payload["input_text"],
+    'chat_history': [],
+    }
+    response = requests.post('https://api.writesonic.com/v1/botsonic/botsonic/generate/0ef137ad-b46b-4d99-a17d-93ca247254e6', headers=headers, json=json_data)
     print(response.text)
     conversation_log = [{'role': 'system', 'content':f'Extract the bash command from \"{response.text}\" and print it out without additional text.If no command is found, please return \"None\".'}]
     print("extracting commands...")
