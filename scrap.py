@@ -37,10 +37,10 @@ if item:
     # Send a GET request to the URL
     response = requests.get(Tech_url)
 
-    # Create a BeautifulSoup object with the response text
+    # Create a BeautifulSoup object with the response text Make scaper
     Tech_soup = BeautifulSoup(response.text, "html.parser")
 
-    # Find all <div> elements with class "col-12"
+    # finds divs with technology info
     TECH_divs = Tech_soup.find_all("div", class_="col-12")
     Technologys=[]
     # Iterate over the found <div> elements
@@ -63,7 +63,7 @@ if item:
     response = requests.get(url)
 
     # Create a BeautifulSoup object with the response text
-    Xss_SQL_soup = BeautifulSoup(response.text, "html.parser")
+    scraper = BeautifulSoup(response.text, "html.parser")
 
 
 
@@ -114,7 +114,7 @@ if item:
 
 
     # Find all tags in the XSS list
-    XSS_found_tags = Xss_SQL_soup.find_all(xss_tags)
+    XSS_found_tags = scraper.find_all(xss_tags)
 
     if XSS_found_tags:
         #update data 
