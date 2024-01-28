@@ -35,7 +35,7 @@ headers = {
 
 
 
-API_KEY = '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'  # Replace with your actual API key
+API_KEY = ''  # Replace with your actual API key
 openai.api_key = API_KEY
 model_id = 'gpt-3.5-turbo'
 print("starting buging")
@@ -50,7 +50,7 @@ def chatgpt_conversation(conversation_log):
     })
     return conversation_log
 
-token = 'XwjlF04MT1t5eGHPdg7-YgaoekM_RD9JpccHjGXhDRJpQZTk4L41lJhI1VQZQFVK925JZA.'
+token = ''
 bardcode = Bard(token=token)
 def extract_identifiers(csv_file):
     identifiers = []
